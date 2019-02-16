@@ -1,0 +1,17 @@
+plugins {
+  id 'java-library'
+}
+
+dependencies {
+  compile deps.servlet
+
+  implementation project(':rpc-core')
+  implementation deps.gson
+  implementation deps.guava
+  implementation deps.slf4j.api
+  implementation deps.wire.runtime
+  implementation deps.wire.gson
+
+  testImplementation project(':rpc-client')
+  testImplementation project(':rpc-client')
+}

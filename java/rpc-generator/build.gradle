@@ -1,0 +1,54 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    compile deps.wire.compiler
+    compile deps.wire.schema
+    compile deps.maven['core']
+    compile deps.maven['plugin-api']
+    compile deps.maven['plugin-tools']
+}
+
+//<properties>
+//        <wire.version>2.0.1</wire.version>
+//    <javapoet.version>1.3.0</javapoet.version>
+//        <maven.plugin.annotations.version>3.2</maven.plugin.annotations.version>
+//    <maven.plugin.api.version>3.1.1</maven.plugin.api.version>
+//        </properties>
+//
+//  <dependencies>
+//    <dependency>
+//      <groupId>com.squareup.wire</groupId>
+//        <artifactId>wire-schema</artifactId>
+//      <version>${wire.version}</version>
+//</dependency>
+//    <dependency>
+//      <groupId>com.squareup.wire</groupId>
+//        <artifactId>wire-compiler</artifactId>
+//      <version>${wire.version}</version>
+//</dependency>
+//    <dependency>
+//      <groupId>com.squareup</groupId>
+//        <artifactId>javapoet</artifactId>
+//      <version>${javapoet.version}</version>
+//</dependency>
+//    <dependency>
+//      <groupId>org.apache.maven</groupId>
+//        <artifactId>maven-plugin-api</artifactId>
+//      <version>${maven.plugin.api.version}</version>
+//<scope>provided</scope>
+//    </dependency>
+//        <dependency>
+//        <groupId>org.apache.maven.plugin-tools</groupId>
+//      <artifactId>maven-plugin-annotations</artifactId>
+//<version>${maven.plugin.annotations.version}</version>
+//      <scope>provided</scope>
+//        </dependency>
+//    <dependency>
+//      <groupId>org.apache.maven</groupId>
+//<artifactId>maven-core</artifactId>
+//      <version>${maven.plugin.api.version}</version>
+//        <scope>provided</scope>
+//    </dependency>
+//</dependencies>
