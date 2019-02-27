@@ -5,9 +5,8 @@ plugins {
 dependencies {
     implementation deps.wire.compiler
     implementation deps.wire.schema
-    compile deps.maven['core']
-    compile deps.maven['plugin-api']
-    compile deps.maven['plugin-tools']
-//    compile "com.beust:jcommander:1.74"
+    compile deps.maven.core
+    compile deps.maven.plugin.api
+    compile deps.maven.plugin.tools
     implementation 'info.picocli:picocli:3.9.5'
 }

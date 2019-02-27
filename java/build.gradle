@@ -7,7 +7,10 @@ buildscript {
             'okhttp': '3.9.1',
             'slf4j': '1.7.25',
             'wire': '2.2.0',
-            'maven': '2.2.0',
+            'maven': '3.5.0',
+            'mavenAnnotations': '3.5',
+            'mavenPluginBuilder': '1.2.1',
+            'mavenPublish': '0.6.0'
     ]
 
     ext.deps = [
@@ -26,13 +29,24 @@ buildscript {
                     'runtime': "com.squareup.wire:wire-runtime:${versions.wire}",
                     'schema': "com.squareup.wire:wire-schema:${versions.wire}",
             ],
+            'junit': "junit:junit:4.12",
             'maven': [
-                    'core': "org.apache.maven:maven-core:3.1.1",
-                    'plugin-api': "org.apache.maven:maven-plugin-api:3.1.1",
-                    'plugin-tools': "org.apache.maven.plugin-tools:maven-plugin-annotations:3.2",
+                    'core': "org.apache.maven:maven-core:${versions.maven}",
+                    'plugin': [
+                            'api': "org.apache.maven:maven-plugin-api:${versions.maven}",
+                            'annotations': "org.apache.maven.plugin-tools:maven-plugin-annotations:${versions.mavenAnnotations}",
+                            'builder': "gradle.plugin.com.liferay:gradle-plugins-maven-plugin-builder:${versions.mavenPluginBuilder}",
+                            'publish': "com.vanniktech:gradle-maven-publish-plugin:${versions.mavenPublish}",
+                            'tools': "org.apache.maven.plugin-tools:maven-plugin-annotations:3.2",
+                    ]
             ],
-            'junit': "junit:junit:4.12"
+
     ]
+
+    dependencies {
+        classpath deps.maven.plugin.builder
+        classpath deps.maven.plugin.publish
+    }
 }
 
 plugins {
@@ -40,9 +54,12 @@ plugins {
 }
 
 subprojects {
+    group = GROUP
     version = "0.1"
 
     repositories {
         jcenter()
     }
+
+    apply plugin: 'com.vanniktech.maven.publish'
 }
