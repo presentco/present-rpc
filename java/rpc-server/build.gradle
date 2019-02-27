@@ -2,6 +2,14 @@ plugins {
   id 'java-library'
 }
 
+ext {
+  generatedSourcesDir = "${buildDir}/generated/src/java"
+}
+
+configurations {
+  wire
+}
+
 dependencies {
   compile deps.servlet
 
@@ -13,5 +21,29 @@ dependencies {
   implementation deps.wire.gson
 
   testImplementation project(':rpc-client')
-  testImplementation project(':rpc-client')
+  testImplementation deps.junit
+
+  testImplementation 'org.eclipse.jetty:jetty-servlet:9.4.15.v20190215'
+  testImplementation 'org.slf4j:slf4j-jdk14:1.8.0-beta4'
+
+  // Force older version of okio
+  testImplementation 'com.squareup.okio:okio:1.13.0'
+
+  wire project(':rpc-compiler')
 }
+
+task generateTestProtos(type: JavaExec) {
+  classpath = configurations.wire
+  main = 'present.rpc.RpcCompiler'
+  args = [
+          '--proto_path=src/test/proto',
+          "--java_out=$generatedSourcesDir"
+  ]
+}
+
+compileTestJava {
+  dependsOn generateTestProtos
+}
+
+sourceSets.test.java.srcDirs += generatedSourcesDir
+

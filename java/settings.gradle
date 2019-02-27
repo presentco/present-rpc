@@ -2,5 +2,5 @@ rootProject.name = 'present-rpc'
 
 include('rpc-client')
 include('rpc-core')
-include('rpc-generator')
+include('rpc-compiler')
 include('rpc-server')

@@ -1,10 +1,10 @@
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
     }
 
     ext.versions = [
-            'okhttp': '3.13.1',
+            'okhttp': '3.9.1',
             'slf4j': '1.7.25',
             'wire': '2.2.0',
             'maven': '2.2.0',
@@ -31,6 +31,7 @@ buildscript {
                     'plugin-api': "org.apache.maven:maven-plugin-api:3.1.1",
                     'plugin-tools': "org.apache.maven.plugin-tools:maven-plugin-annotations:3.2",
             ],
+            'junit': "junit:junit:4.12"
     ]
 }
 
@@ -42,6 +43,6 @@ subprojects {
     version = "0.1"
 
     repositories {
-        mavenCentral()
+        jcenter()
     }
 }
