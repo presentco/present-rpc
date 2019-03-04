@@ -10,17 +10,15 @@ import java.lang.reflect.Method;
  */
 public abstract class RpcInvocation {
 
-  private final Class<?> headerType;
+  private final RpcHeaders headers;
   private final RpcMethod method;
-  private Object header;
   private final Object argument;
   private final Object implementation;
 
-  public RpcInvocation(Class<?> headerType, RpcMethod method, Object header, Object argument,
+  public RpcInvocation(RpcHeaders headers, RpcMethod method, Object argument,
       Object implementation) {
-    this.headerType = headerType;
+    this.headers = headers;
     this.method = method;
-    this.header = header;
     this.argument = argument;
     this.implementation = implementation;
     Class<?> interfaceType = method.method().getDeclaringClass();
@@ -28,30 +26,30 @@ public abstract class RpcInvocation {
   }
 
   public RpcInvocation(RpcInvocation original) {
-    this(original.headerType, original.getMethod(), original.header, original.getArgument(),
-        original.getImplementation());
+    this(original.headers, original.method(), original.argument(),
+        original.implementation());
+  }
+
+  /** Exposes headers from the underyling transport (HTTP, for example). */
+  public RpcHeaders headers() {
+    return this.headers;
   }
 
   /** Returns the abstract RPC method. */
-  public RpcMethod getMethod() {
+  public RpcMethod method() {
     return method;
   }
 
   /** Returns the method argument. */
-  public Object getArgument() {
+  public Object argument() {
     return this.argument;
   }
 
-  /** Returns the request header. */
-  public Object getHeader() {
-    return header;
-  }
-
   /** Returns the object that implements this service. */
-  public Object getImplementation() { return implementation; }
+  public Object implementation() { return implementation; }
 
   /** Returns the concrete implementation method. */
-  public Method getImplementationMethod() {
+  public Method implementationMethod() {
     Method method = this.method.method();
     try {
       return this.implementation.getClass().getMethod(
@@ -59,15 +57,6 @@ public abstract class RpcInvocation {
     } catch (NoSuchMethodException e) {
       throw new RuntimeException(e);
     }
-  }
-
-  /** Sets the request header. */
-  public void setHeader(Object header) {
-    this.header = headerType.cast(header);
-  }
-
-  public <H> H getHeader(Class<H> headerType) {
-    return headerType.cast(header);
   }
 
   public abstract Object proceed() throws Exception;
@@ -82,19 +71,10 @@ public abstract class RpcInvocation {
     return Preconditions.checkNotNull(current.get());
   }
 
-  /**
-   * Gets the RpcInvocation for the current thread.
-   * @throws NullPointerException if required is true and we are not in the context of an RPC call.
-   */
-  public static RpcInvocation current(boolean required) {
-    RpcInvocation rpcInvocation = current.get();
-    return required ? Preconditions.checkNotNull(rpcInvocation) : rpcInvocation;
-  }
-
-  /** Returns a filter that sets the invocation on the current thread. */
-  public static RpcFilter threadLocalFilter() {
-    return new RpcFilter() {
-      @Override public Object filter(RpcInvocation invocation) throws Exception {
+  /** Returns an interceptor that sets the invocation on the current thread. */
+  static RpcInterceptor threadLocalFilter() {
+    return new RpcInterceptor() {
+      @Override public Object intercept(RpcInvocation invocation) throws Exception {
         current.set(invocation);
         try {
           return invocation.proceed();
@@ -109,11 +89,10 @@ public abstract class RpcInvocation {
    * Creates a new invocation that reflectively invokes the given method on the given
    * implementation instance.
    */
-  public static RpcInvocation newInstance(Class<?> headerType, Object header,
-      final Object implementation, final RpcMethod method, final Object argument) {
-    headerType.cast(header);
+  public static RpcInvocation newInstance(RpcHeaders headers,
+      Object implementation, RpcMethod method, Object argument) {
     method.method().getParameterTypes()[0].cast(argument);
-    return new RpcInvocation(headerType, method, header, argument, implementation) {
+    return new RpcInvocation(headers, method, argument, implementation) {
       public Object proceed() throws Exception {
         try {
           return method.method().invoke(implementation, argument);
@@ -128,12 +107,8 @@ public abstract class RpcInvocation {
 
   @Override public String toString() {
     return "RpcInvocation{"
-        + "headerType="
-        + headerType
         + ", method="
         + method
-        + ", header="
-        + header
         + ", argument="
         + argument
         + '}';

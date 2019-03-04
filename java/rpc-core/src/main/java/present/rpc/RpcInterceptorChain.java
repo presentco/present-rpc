@@ -4,21 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Chains RpcFilters.
+ * Chains RpcInterceptors.
  *
  * @author Bob Lee (bob@present.co)
  */
-public class RpcFilterChain implements RpcFilter {
+public class RpcInterceptorChain implements RpcInterceptor {
 
-  private final List<RpcFilter> filters = new ArrayList<>();
+  private final List<RpcInterceptor> interceptors = new ArrayList<>();
 
-  /** Adds a new filter to the end of the chain. */
-  public RpcFilterChain add(RpcFilter filter) {
-    filters.add(filter);
+  /** Adds a new interceptor to the end of the chain. */
+  public RpcInterceptorChain add(RpcInterceptor interceptor) {
+    interceptors.add(interceptor);
     return this;
   }
 
-  @Override public Object filter(RpcInvocation invocation) throws Exception {
+  @Override public Object intercept(RpcInvocation invocation) throws Exception {
     return new ChainedInvocation(invocation).proceed();
   }
 
@@ -33,9 +33,9 @@ public class RpcFilterChain implements RpcFilter {
     }
 
     @Override public Object proceed() throws Exception {
-      if (index < filters.size()) {
+      if (index < interceptors.size()) {
         try {
-          return filters.get(index++).filter(this);
+          return interceptors.get(index++).intercept(this);
         } finally {
           index--;
         }

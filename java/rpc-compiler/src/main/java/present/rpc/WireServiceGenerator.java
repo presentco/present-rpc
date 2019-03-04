@@ -96,6 +96,7 @@ final class WireServiceGenerator {
       MethodSpec.Builder rpcBuilder = MethodSpec.methodBuilder(upperToLowerCamel(rpc.name()));
       rpcBuilder.addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT);
       rpcBuilder.returns(responseJavaType);
+      rpcBuilder.addException(TypeName.get(IOException.class));
 
       rpcBuilder.addParameter(requestJavaType, "request");
 

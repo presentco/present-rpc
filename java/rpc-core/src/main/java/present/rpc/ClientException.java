@@ -1,8 +1,11 @@
 package present.rpc;
 
-public class ClientException extends RpcException {
+/**
+ * Indicates a problem with the client, as opposed to an unexpected problem with the server.
+ */
+public class ClientException extends RuntimeException {
 
   public ClientException(String message) {
-    super(Error.Type.CLIENT, message);
+    super(message);
   }
 }

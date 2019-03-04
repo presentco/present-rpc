@@ -19,8 +19,6 @@ public class RpcMethod {
   private final Method method;
   private final Class<?> argumentType;
   private final Class<?> resultType;
-  private final ProtoAdapter argumentAdapter;
-  private final ProtoAdapter resultAdapter;
 
   public RpcMethod(Method method) {
     this.method = method;
@@ -29,8 +27,6 @@ public class RpcMethod {
     this.resultType = method.getReturnType();
     Preconditions.checkArgument(Message.class.isAssignableFrom(this.argumentType));
     Preconditions.checkArgument(Message.class.isAssignableFrom(this.resultType));
-    argumentAdapter = ProtoAdapter.get(this.argumentType);
-    resultAdapter = ProtoAdapter.get(resultType);
   }
 
   public Class<?> service() { return method.getDeclaringClass(); }
@@ -55,30 +51,6 @@ public class RpcMethod {
       map.put(method.getName(), new RpcMethod(method));
     }
     return Collections.unmodifiableMap(map);
-  }
-
-  public Message argumentFromBytes(ByteString argument) throws IOException {
-    return (Message) argumentAdapter.decode(argument);
-  }
-
-  public ByteString argumentToBytes(Message argument) {
-    return toBytes(argument, argumentAdapter, method.getParameterTypes()[0]);
-  }
-
-  public Message resultFromBytes(ByteString result) throws IOException {
-    return (Message) resultAdapter.decode(result);
-  }
-
-  public ByteString resultToBytes(Object result) {
-    return toBytes(result, resultAdapter, method.getReturnType());
-  }
-
-  private static ByteString toBytes(Object value, ProtoAdapter adapter, Class<?> expectedType) {
-    expectedType.cast(value);
-    // The case above ensures this is OK.
-    @SuppressWarnings("unchecked")
-    byte[] bytes = adapter.encode(value);
-    return ByteString.of(bytes);
   }
 
   @Override public String toString() {

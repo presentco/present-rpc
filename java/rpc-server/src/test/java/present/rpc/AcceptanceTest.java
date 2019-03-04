@@ -13,22 +13,30 @@ public class AcceptanceTest {
   @Test public void test() throws Exception {
     int port = randomPort();
     Server server = startServer(port);
-    RpcFilter rpcFilter = invocation -> {
-      invocation.setHeader(new Header());
+
+    String url = "http://localhost:" + port;
+
+    RpcInterceptor interceptor = invocation -> {
+      invocation.headers().put("test-header", "test-value");
       return invocation.proceed();
     };
-    EchoService echo = RpcClient.create("http://localhost:" + port,
-        Header.class, EchoService.class, rpcFilter);
-    EchoResponse response = echo.echo(new EchoRequest(42));
-    assertEquals(42, (int) response.value);
+
+    test(RpcClient.create(url, EchoService.class, interceptor));
+    test(RpcClient.create(RpcEncoding.JSON, url, EchoService.class, interceptor));
+
     server.stop();
   }
 
-  private Server startServer(int port) throws Exception {
+  private void test(EchoService echo) throws IOException {
+    EchoResponse response = echo.echo(new EchoRequest(42));
+    assertEquals(42, (int) response.value);
+  }
+
+  private static Server startServer(int port) throws Exception {
     Server server = new Server(port);
     ServletHandler handler = new ServletHandler();
     server.setHandler(handler);
-    handler.addServletWithMapping(EchoServlet.class, "/*");
+    handler.addFilterWithMapping(EchoFilter.class,"/*", 0);
     server.start();
     return server;
   }
@@ -44,11 +52,17 @@ public class AcceptanceTest {
 
   private static class EchoServiceImpl implements EchoService {
     @Override public EchoResponse echo(EchoRequest request) {
+      assertEquals("test-value", RpcInvocation.current().headers().get("test-header"));
       return new EchoResponse(request.value);
     }
   }
 
-  public static class EchoServlet extends RpcServlet {{
-    service(Header.class, EchoService.class, new EchoServiceImpl(), RpcFilter.NOOP);
+  public static class EchoFilter extends RpcFilter {{
+    service(EchoService.class, new EchoServiceImpl(), null);
   }}
+
+  public static void main(String[] args) throws Exception {
+    Server server = startServer(8080);
+    server.join();
+  }
 }
