@@ -66,4 +66,14 @@ public enum RpcEncoding {
   abstract void encode(Object o, OutputStream out) throws IOException;
 
   abstract byte[] encode(Object o) throws IOException;
+
+  static RpcEncoding forContentType(String contentType) {
+    if (contentType == null) return JSON;
+    for (RpcEncoding encoding : values()) {
+      if (contentType.contains(encoding.contentType)) {
+        return encoding;
+      }
+    }
+    return null;
+  }
 }

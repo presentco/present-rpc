@@ -12,19 +12,20 @@ HTTP)
 
 ## HTTP Protocol
 
+* Specify the encoding in the `Content-Type` request header: 
+  * JSON: `application/json`
+  * Protocol Buffers: `application/x-protobuf`
 * POST the encoded argument to `/[Service Name]/[Method Name]`. 
-* The service will respond with one of the following codes:
-  * 200 - Successful
-  * 4XX - Client Error
-  * 5XX - Server Error
-* If successful (200), the service will return the 
-encoded result in the response body.
-* Defaults to JSON encoding. Set the `Content-Type` to `application/x-protobuf` to use Protocol
-Buffer encoding.
+* The service will respond with one of the following HTTP response codes:
+  * `200` - Successful
+  * `4XX` - Client Error
+  * `5XX` - Server Error
+* If successful (`200`), the service will return the 
+encoded result in the response body using the same encoding as the request.
 
 ### Example
 
-Call this example service:
+Call this service:
 
 ```
 service EchoService {
@@ -40,10 +41,10 @@ message EchoResponse {
 }
 ```
 
-Using `curl`:
+With `curl`:
 
 ```
-$ curl -i -X POST -d '{value:42}' http://localhost:8080/EchoService/echo
+$ curl -i -H "Content-Type: application/json" -X POST -d '{value:42}' http://localhost:8080/EchoService/echo
 HTTP/1.1 200 OK
 Content-Type: application/json
 Content-Length: 12

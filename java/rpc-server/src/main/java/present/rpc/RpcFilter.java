@@ -92,11 +92,11 @@ public abstract class RpcFilter implements Filter {
     }
 
     // Determine encoding. Default to JSON.
-    RpcEncoding encoding = RpcEncoding.JSON;
     String contentType = request.getContentType();
-    // Example: "application/json; charset=utf-8"
-    if (contentType != null && contentType.contains(RpcEncoding.PROTO.contentType)) {
-      encoding = RpcEncoding.PROTO;
+    RpcEncoding encoding = RpcEncoding.forContentType(contentType);
+    if (encoding == null) {
+      sendError(request, response, 400, "Unsupported content type: " + contentType);
+      return;
     }
 
     // Parse argument.
