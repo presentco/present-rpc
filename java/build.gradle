@@ -52,10 +52,9 @@ buildscript {
 
 plugins {
     id 'com.github.sherter.google-java-format' version '0.8'
-
-    // To run: $ gradle :aggregateJavadocs
-    id 'nebula-aggregate-javadocs'
 }
+// To run: $ gradle :aggregateJavadocs
+apply plugin: 'nebula-aggregate-javadocs'
 
 subprojects {
     group = GROUP

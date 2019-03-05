@@ -4,10 +4,12 @@ Simple, idiomatic, Protocol Buffer-based RPCs
 
 ## Features
 
-* Simple!
+* Simple! Post a JSON object, and receive a JSON object back.
+* Clearly define APIs using Protocol Buffers.
+* REST-friendly: Use your familiar tools.
+* Use Protocol Buffer encoding for more efficiency and the ability to rename fields.
 * Transport agnostic (currently supports 
 HTTP)
-* REST-friendly
 * [Java client and server implementations](https://github.com/presentco/present-rpc/tree/master/java)
 * Works with [App Engine](https://cloud.google.com/appengine/docs/java/)
 
