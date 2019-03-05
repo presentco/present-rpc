@@ -9,6 +9,7 @@ Simple, idiomatic, Protocol Buffer-based RPCs
 HTTP)
 * REST-friendly
 * [Java client and server implementations](https://github.com/presentco/present-rpc/tree/master/java)
+* Works with [App Engine](https://cloud.google.com/appengine/docs/java/)
 
 ## HTTP Protocol
 
@@ -22,6 +23,32 @@ HTTP)
   * `5XX` - Server Error
 * If successful (`200`), the service will return the 
 encoded result in the response body using the same encoding as the request.
+
+For a Protocol Buffer service:
+
+```
+service [Service Name] {
+  rpc [Method Name]([Argument Type]) returns ([Result Type]);
+}
+```
+
+An HTTP request looks like:
+
+```
+POST /[Service Name]/[Method Name]
+Content-Type: [Content Type]
+
+[Encoded Argument]
+```
+
+The the response looks like:
+
+```
+HTTP/1.1 200 OK
+Content-Type: [Content Type]
+
+[Encoded Result]
+```
 
 ### Example
 
