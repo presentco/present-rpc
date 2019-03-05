@@ -1,6 +1,6 @@
 # Present RPC
 
-Simple Protocol Buffer-based RPCs
+Simple, idiomatic, Protocol Buffer-based RPCs
 
 ## Features
 

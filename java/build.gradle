@@ -51,6 +51,7 @@ buildscript {
 
 plugins {
     id 'com.github.sherter.google-java-format' version '0.8'
+    id 'java'
 }
 
 subprojects {
@@ -60,4 +61,16 @@ subprojects {
     repositories {
         jcenter()
     }
+}
+
+def exportedProjects = [
+        ":rpc-core",
+        ":rpc-client",
+        ":rpc-server",
+]
+
+task alljavadoc(type: Javadoc) {
+    source exportedProjects.collect { project(it).sourceSets.main.allJava }
+    classpath = files(exportedProjects.collect { project(it).sourceSets.main.compileClasspath })
+    destinationDir = file("${buildDir}/docs/javadoc")
 }

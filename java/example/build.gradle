@@ -22,8 +22,6 @@ configurations {
 dependencies {
   rpc 'co.present.present-rpc:rpc-compiler:0.1-SNAPSHOT'
 
-  compile 'javax.servlet:javax.servlet-api:3.1.0'
-
   implementation 'co.present.present-rpc:rpc-server:0.1-SNAPSHOT'
   implementation 'org.eclipse.jetty:jetty-servlet:9.4.15.v20190215'
 }

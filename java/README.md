@@ -39,11 +39,10 @@ configurations {
 }
 
 dependencies {
-  compile deps.servlet
   rpc 'co.present.present-rpc:rpc-compiler:0.1-SNAPSHOT'
 }
 
-task generateTestProtos(type: JavaExec) {
+task generateProtos(type: JavaExec) {
   classpath = configurations.rpc
   main = 'present.rpc.RpcCompiler'
   args = [
@@ -88,7 +87,7 @@ public class EchoServiceImpl implements EchoService {
 }
 ```
 
-Extend `RpcFilter`:
+Extend `RpcFilter`. This exposes your service with your chosen implementation.
 
 ```
 public class EchoFilter extends RpcFilter {{
@@ -96,7 +95,7 @@ public class EchoFilter extends RpcFilter {{
 }}
 ```
 
-And map it in `web.xml`:
+Finally, map it in `web.xml`:
 
 ```
 <filter>
@@ -109,6 +108,8 @@ And map it in `web.xml`:
   <url-pattern>/*</url-pattern>
 </filter-mapping>
 ```
+
+`RpcFilter` handles calls to your service and lets other requests pass through.
 
 ## Client Example
 
