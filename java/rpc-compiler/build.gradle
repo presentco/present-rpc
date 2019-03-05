@@ -1,5 +1,6 @@
 plugins {
     id 'java-library'
+    id 'java-gradle-plugin'
     id 'com.vanniktech.maven.publish'
 }
 
@@ -9,8 +10,14 @@ targetCompatibility = '1.8'
 dependencies {
     implementation deps.wire.compiler
     implementation deps.wire.schema
-    compile deps.maven.core
-    compile deps.maven.plugin.api
-    compile deps.maven.plugin.tools
     implementation 'info.picocli:picocli:3.9.5'
+}
+
+gradlePlugin {
+    plugins {
+        rpcCompiler {
+            id = 'present-rpc-compiler'
+            implementationClass = 'present.rpc.RpcCompilerPlugin'
+        }
+    }
 }

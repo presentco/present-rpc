@@ -1,73 +1,59 @@
 # Present RPC for Java
 
-Present RPC for Java builds upon [Wire](https://github.com/square/wire).
+Present RPC for Java builds upon [Wire](https://github.com/square/wire),
+a clean, lightweight Protocol Buffer compiler for Java.
 
 ## Modules
 
-* `rpc-compiler`: Generates Java interfaces from Protocol Buffer services  
-* `rpc-client`: Java client to call Present RPC services
+* `rpc-compiler`: Generate Java code for Protocol Buffer services
+* `rpc-client`: Call Present RPC services from Java
 * `rpc-server`: Implement Present RPC services in Java
 
-## Service Generation Example
+## Service Generation
+
+The `present-rpc-compiler` Gradle plugin generates code for protos in
+`src/main/proto` and automatically compiles it along with your other
+Java code. To use it, add this code to your `build.gradle` file:
+
+```
+buildscript {
+  repositories {
+    jcenter()
+  }
+
+  dependencies {
+    classpath 'co.present.present-rpc:rpc-compiler:0.1-SNAPSHOT'
+  }
+}
+
+apply plugin: 'present-rpc-compiler'
+```
+
+Don't use Gradle? Try the `present.rpc.RpcCompiler` command line tool instead.
+
+## Example: `EchoService`
 
 Put `echo.proto` in `src/main/proto`:
 
 ```
 service EchoService {
-  rpc echo(EchoRequest) returns (EchoResponse);
+  rpc echo(EchoMessage) returns (EchoMessage);
 }
 
-message EchoRequest {
-  uint32 value = 1;
-}
-
-message EchoResponse {
+message EchoMessage {
   uint32 value = 1;
 }
 ```
 
-Call `rpc-compiler` from `build.gradle`. It will generate service interfaces and delegate to Wire
-to generate classes for Protocol Buffer messages:
-
-```
-ext {
-  generatedSourcesDir = "${buildDir}/generated/src/java"
-}
-
-configurations {
-  rpc
-}
-
-dependencies {
-  rpc 'co.present.present-rpc:rpc-compiler:0.1-SNAPSHOT'
-}
-
-task generateProtos(type: JavaExec) {
-  classpath = configurations.rpc
-  main = 'present.rpc.RpcCompiler'
-  args = [
-          '--proto_path=src/main/proto',
-          "--java_out=$generatedSourcesDir"
-  ]
-}
-
-compileJava {
-  dependsOn generateProtos
-}
-
-sourceSets.main.java.srcDirs += generatedSourcesDir
-
-```
-
-This generates `EchoService.java`:
+The `present-rpc-compiler` plugin will generate `EchoService.java`:
 
 ```
 public interface EchoService {
-  EchoResponse echo(EchoRequest request) throws IOException;
+  EchoMessage echo(EchoMessage request) throws IOException;
 }
 ```
 
-## Server Example
+### The Server
 
 Add `rpc-server` to `build.gradle`:
 
@@ -81,13 +67,13 @@ Implement `EchoService`:
 
 ```
 public class EchoServiceImpl implements EchoService {
-  @Override public EchoResponse echo(EchoRequest request) {
-    return new EchoResponse(request.value);
+  @Override public EchoMessage echo(EchoMessage request) {
+    return new EchoMessage(request.value);
   }
 }
 ```
 
-Extend `RpcFilter`. This exposes your service with your chosen implementation.
+Extend `RpcFilter`. This exposes your service and chosen implementation.
 
 ```
 public class EchoFilter extends RpcFilter {{
@@ -109,9 +95,9 @@ Finally, map it in `web.xml`:
 </filter-mapping>
 ```
 
-`RpcFilter` handles calls to your service and lets other requests pass through.
+`RpcFilter` handles calls to your service and lets other unrelated requests pass through.
 
-## Client Example
+## The Client
 
 Add `rpc-client` to `build.gradle`:
 
