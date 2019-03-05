@@ -85,6 +85,12 @@ public class RpcClient {
           headers.headers.forEach(builder::addHeader);
           Request request = builder.build();
           okhttp3.Response response = httpClient.newCall(request).execute();
+          int code = response.code();
+          if (code >= 400 && code < 500) {
+            throw new ClientException(response.message());
+          }
+          if (code >= 500) throw new ServerException(response.message());
+          // assert code == 200
           ResponseBody responseBody = response.body();
           if (responseBody == null) throw new RuntimeException("Missing response body.");
           return encoding.decode(method.resultType(), responseBody.byteStream());

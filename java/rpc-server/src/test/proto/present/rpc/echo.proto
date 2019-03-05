@@ -15,5 +15,3 @@ message EchoRequest {
 message EchoResponse {
   uint32 value = 1;
 }
-
-message Header {}
