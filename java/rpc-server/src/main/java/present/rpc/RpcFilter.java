@@ -61,8 +61,8 @@ public abstract class RpcFilter implements Filter {
       throws IOException, ServletException {
     HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
     HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
-    String pathInfo = httpRequest.getPathInfo();
-    List<String> pathElements = Splitter.on('/').splitToList(pathInfo);
+    String path = httpRequest.getServletPath();
+    List<String> pathElements = Splitter.on('/').splitToList(path);
     if (pathElements.size() == 3) {
       String serviceName = pathElements.get(1);
       RpcService service = services.get(serviceName);
