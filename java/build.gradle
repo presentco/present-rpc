@@ -60,6 +60,4 @@ subprojects {
     repositories {
         jcenter()
     }
-
-    apply plugin: 'com.vanniktech.maven.publish'
 }

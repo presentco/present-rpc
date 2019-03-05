@@ -1,5 +1,6 @@
 plugins {
   id 'java-library'
+  id 'com.vanniktech.maven.publish'
 }
 
 ext {
@@ -13,7 +14,7 @@ configurations {
 dependencies {
   compile deps.servlet
 
-  implementation project(':rpc-core')
+  api project(':rpc-core')
   implementation deps.gson
   implementation deps.guava
   implementation deps.slf4j.api

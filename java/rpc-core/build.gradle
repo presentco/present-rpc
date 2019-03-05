@@ -1,9 +1,10 @@
 plugins {
     id 'java-library'
+    id 'com.vanniktech.maven.publish'
 }
 
 dependencies {
+    api deps.wire.runtime
     implementation deps.gson
-    implementation deps.wire.runtime
     implementation deps.wire.gson
 }

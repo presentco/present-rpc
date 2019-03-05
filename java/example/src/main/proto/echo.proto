@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package example;
+
+// Echo service
+service EchoService {
+  // Echoes a value back.
+  rpc echo(EchoRequest) returns (EchoResponse);
+}
+
+message EchoRequest {
+  uint32 value = 1;
+}
+
+message EchoResponse {
+  uint32 value = 1;
+}
