@@ -46,12 +46,15 @@ buildscript {
     dependencies {
         classpath deps.maven.plugin.builder
         classpath deps.maven.plugin.publish
+        classpath 'com.netflix.nebula:gradle-aggregate-javadocs-plugin:2.2.+'
     }
 }
 
 plugins {
     id 'com.github.sherter.google-java-format' version '0.8'
-    id 'java'
+
+    // To run: $ gradle :aggregateJavadocs
+    id 'nebula-aggregate-javadocs'
 }
 
 subprojects {
@@ -61,16 +64,4 @@ subprojects {
     repositories {
         jcenter()
     }
-}
-
-def exportedProjects = [
-        ":rpc-core",
-        ":rpc-client",
-        ":rpc-server",
-]
-
-task alljavadoc(type: Javadoc) {
-    source exportedProjects.collect { project(it).sourceSets.main.allJava }
-    classpath = files(exportedProjects.collect { project(it).sourceSets.main.compileClasspath })
-    destinationDir = file("${buildDir}/docs/javadoc")
 }
