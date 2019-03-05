@@ -1,6 +1,6 @@
 # Present RPC for Java
 
-Present RPC for Java uses Wire to handle Protocol Buffers.
+Present RPC for Java builds upon [Wire](https://github.com/square/wire).
 
 ## Modules
 
@@ -60,7 +60,23 @@ sourceSets.main.java.srcDirs += generatedSourcesDir
 
 ```
 
+This generates `EchoService.java`:
+
+```
+public interface EchoService {
+  EchoResponse echo(EchoRequest request) throws IOException;
+}
+```
+
 ## Server Example
+
+Add `rpc-server` to `build.gradle`:
+
+```
+dependencies {
+  implementation 'co.present.present-rpc:rpc-server:0.1-SNAPSHOT'
+}
+```
 
 Implement `EchoService`:
 
@@ -95,6 +111,16 @@ And map it in `web.xml`:
 ```
 
 ## Client Example
+
+Add `rpc-client` to `build.gradle`:
+
+```
+dependencies {
+  implementation 'co.present.present-rpc:rpc-client:0.1-SNAPSHOT'
+}
+```
+
+Create a client stub and call it:
 
 ```
 EchoService echo = RpcClient.create("http://localhost:8080", EchoService.class, null);
