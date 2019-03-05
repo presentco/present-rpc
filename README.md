@@ -1,6 +1,6 @@
 # Present RPC
 
-Simple, idiomatic, Protocol Buffer-based RPCs
+Simple, idiomatic, [Protocol Buffer-based](https://developers.google.com/protocol-buffers/docs/proto3) RPCs
 
 ## Features
 
