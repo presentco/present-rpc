@@ -11,9 +11,9 @@ a clean, lightweight Protocol Buffer compiler for Java.
 
 ## Service Generation
 
-The `present-rpc-compiler` Gradle plugin generates code for protos in
+The `present-rpc-compiler` Gradle plugin generates code from protos in
 `src/main/proto` and automatically compiles it along with your other
-Java code. To use it, add this code to your `build.gradle` file:
+Java code. To use the plugin, add this code to your `build.gradle` file:
 
 ```
 buildscript {
@@ -114,3 +114,5 @@ EchoService echo = RpcClient.create("http://localhost:8080", EchoService.class, 
 EchoResponse response = echo.echo(new EchoRequest(42));
 assertEquals(42, (int) response.value);
 ```
+
+That's it!
