@@ -52,3 +52,22 @@ That's it!
   * `4XX` - Client Error
   * `5XX` - Server Error
 * If the RPC is successful, the server will encode the result and return it in the HTTP response body using the same encoding as the request.
+
+## Why Protocol Buffers?
+
+Some people like to use JSON alone, but JSON is a wire format, not an
+API definition language. [Protocol Buffer](https://developers.google.com/protocol-buffers/docs/proto3) 
+are a clean, simple, mature way to define APIs. You can generate client 
+and server code and API documentation from Protocol Buffer definitions, 
+saving effort, and ensuring everything stays in sync. You can still use JSON 
+as the wire format, or you can use the more efficient Protocol Buffer binary 
+format which enables you to change field names without breaking existing clients.
+
+## What about gRPC?
+
+gRPC depends on HTTP/2 which doesn't work everywhere (like App Engine).
+[gRPC-Web](https://github.com/grpc/grpc-web) is complicated, non-idiotmatic,
+and doesn't help here. Present RPC supports HTTP 1.x, it can benefit from
+the performance improvements in HTTP/2, and its libraries can support
+other transports entirely. Present RPC doesn't support streaming yet,
+but it can in the future (please send a patch!).
