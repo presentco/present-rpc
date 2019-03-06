@@ -7,70 +7,27 @@ Simple, idiomatic, [Protocol Buffer-based](https://developers.google.com/protoco
 * Simple! Post a JSON object, and receive a JSON object back.
 * Clearly define APIs using Protocol Buffers.
 * REST-friendly: Use your familiar tools.
-* Use Protocol Buffer encoding for more efficiency and the ability to rename fields.
+* Optionally use Protocol Buffer encoding (instead of JSON). It's more efficient, and you can safely rename fields.
 * Transport agnostic (currently supports 
-HTTP)
-* [Java client and server implementations](https://github.com/presentco/present-rpc/tree/master/java)
-* Works with [App Engine](https://cloud.google.com/appengine/docs/java/)
+HTTP, more to come!)
+* [Java client and server libraries](https://github.com/presentco/present-rpc/tree/master/java)
+* Works with [App Engine](https://cloud.google.com/appengine/docs/java/)!
 
-## HTTP Protocol
+## By Example
 
-* Specify the encoding in the `Content-Type` request header: 
-  * JSON: `application/json`
-  * Protocol Buffers: `application/x-protobuf`
-* POST the encoded argument to `/[Service Name]/[Method Name]`. 
-* The service will respond with one of the following HTTP response codes:
-  * `200` - Successful
-  * `4XX` - Client Error
-  * `5XX` - Server Error
-* If successful (`200`), the service will return the 
-encoded result in the response body using the same encoding as the request.
-
-For a Protocol Buffer service:
-
-```
-service [Service Name] {
-  rpc [Method Name]([Argument Type]) returns ([Result Type]);
-}
-```
-
-An HTTP request looks like:
-
-```
-POST /[Service Name]/[Method Name]
-Content-Type: [Content Type]
-
-[Encoded Argument]
-```
-
-The the response looks like:
-
-```
-HTTP/1.1 200 OK
-Content-Type: [Content Type]
-
-[Encoded Result]
-```
-
-### Example
-
-Call this service:
+Here's a Protocol Buffer definition for a service that echoes a value back to you:
 
 ```
 service EchoService {
-  rpc echo(EchoRequest) returns (EchoResponse);
+  rpc echo(EchoMessage) returns (EchoMessage);
 }
 
-message EchoRequest {
-  uint32 value = 1;
-}
-
-message EchoResponse {
+message EchoMessage {
   uint32 value = 1;
 }
 ```
 
-With `curl`:
+You can call it with `curl` like so:
 
 ```
 $ curl -i -H "Content-Type: application/json" -X POST -d '{value:42}' http://localhost:8080/EchoService/echo
@@ -80,3 +37,18 @@ Content-Length: 12
 
 {"value":42}
 ```
+
+That's it!
+
+## HTTP Protocol Specification
+
+* The client encodes the RPC argument and `POST`s it in the HTTP request body to `/[Service Name]/[Method Name]`.
+* The client may specify an encoding in the `Content-Type` request header: 
+  * JSON: `application/json`
+  * Protocol Buffers: `application/x-protobuf`
+  * JSON is the default. 
+* The server responds with one of the following HTTP response codes:
+  * `200` - Successful
+  * `4XX` - Client Error
+  * `5XX` - Server Error
+* If the RPC is successful, the server will encode the result and return it in the HTTP response body using the same encoding as the request.
