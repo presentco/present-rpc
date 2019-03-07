@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		434DE82122309C15004E633D /* JsonConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434DE82022309C15004E633D /* JsonConvertible.swift */; };
+		434DE8252230B051004E633D /* JSONTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434DE8242230B051004E633D /* JSONTest.swift */; };
+		434DE8272230B121004E633D /* ProtobufTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434DE8262230B121004E633D /* ProtobufTest.swift */; };
+		434DE8382230B787004E633D /* echo.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434DE8362230B787004E633D /* echo.pb.swift */; };
+		434DE83C2230BB83004E633D /* JSONConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434DE83B2230BB83004E633D /* JSONConvertible.swift */; };
+		434DE83E2230BCB5004E633D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 434DE83D2230BCB5004E633D /* README.md */; };
 		4365E95B223095430096A5AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4365E95A223095430096A5AE /* AppDelegate.swift */; };
 		4365E95D223095430096A5AE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4365E95C223095430096A5AE /* ViewController.swift */; };
 		4365E960223095430096A5AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4365E95E223095430096A5AE /* Main.storyboard */; };
@@ -17,7 +21,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		434DE82022309C15004E633D /* JsonConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonConvertible.swift; sourceTree = "<group>"; };
+		434DE8242230B051004E633D /* JSONTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTest.swift; sourceTree = "<group>"; };
+		434DE8262230B121004E633D /* ProtobufTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtobufTest.swift; sourceTree = "<group>"; };
+		434DE8362230B787004E633D /* echo.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = echo.pb.swift; sourceTree = "<group>"; };
+		434DE83B2230BB83004E633D /* JSONConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONConvertible.swift; sourceTree = "<group>"; };
+		434DE83D2230BCB5004E633D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		4365E957223095430096A5AE /* present-rpc-example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "present-rpc-example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4365E95A223095430096A5AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4365E95C223095430096A5AE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -50,6 +58,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		434DE8342230B786004E633D /* protos */ = {
+			isa = PBXGroup;
+			children = (
+				434DE8362230B787004E633D /* echo.pb.swift */,
+			);
+			path = protos;
+			sourceTree = "<group>";
+		};
 		4365E94E223095430096A5AE = {
 			isa = PBXGroup;
 			children = (
@@ -71,9 +87,13 @@
 		4365E959223095430096A5AE /* present-rpc-example */ = {
 			isa = PBXGroup;
 			children = (
+				434DE83D2230BCB5004E633D /* README.md */,
 				4365E95A223095430096A5AE /* AppDelegate.swift */,
 				4365E95C223095430096A5AE /* ViewController.swift */,
-				434DE82022309C15004E633D /* JsonConvertible.swift */,
+				434DE8242230B051004E633D /* JSONTest.swift */,
+				434DE8262230B121004E633D /* ProtobufTest.swift */,
+				434DE83B2230BB83004E633D /* JSONConvertible.swift */,
+				434DE8342230B786004E633D /* protos */,
 				4365E95E223095430096A5AE /* Main.storyboard */,
 				4365E961223095430096A5AE /* Assets.xcassets */,
 				4365E963223095430096A5AE /* LaunchScreen.storyboard */,
@@ -153,6 +173,7 @@
 			files = (
 				4365E965223095430096A5AE /* LaunchScreen.storyboard in Resources */,
 				4365E962223095430096A5AE /* Assets.xcassets in Resources */,
+				434DE83E2230BCB5004E633D /* README.md in Resources */,
 				4365E960223095430096A5AE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -211,9 +232,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				434DE82122309C15004E633D /* JsonConvertible.swift in Sources */,
 				4365E95D223095430096A5AE /* ViewController.swift in Sources */,
+				434DE83C2230BB83004E633D /* JSONConvertible.swift in Sources */,
+				434DE8382230B787004E633D /* echo.pb.swift in Sources */,
 				4365E95B223095430096A5AE /* AppDelegate.swift in Sources */,
+				434DE8272230B121004E633D /* ProtobufTest.swift in Sources */,
+				434DE8252230B051004E633D /* JSONTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

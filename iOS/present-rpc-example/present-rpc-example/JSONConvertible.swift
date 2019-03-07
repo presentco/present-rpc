@@ -1,5 +1,5 @@
 //
-//  JsonConvertible.swift
+//  JSONConvertible.swift
 //  present-rpc-example
 //
 //  Created by Patrick Niemeyer on 3/6/19.
@@ -8,14 +8,14 @@
 
 import Foundation
 
-public protocol JsonConvertible : Codable {
+public protocol JSONConvertible : Codable {
     init?(jsonString: String)
     init?(jsonData: Data)
-    func toJson()->String?
+    func toJSON()->String?
     func toData()->Data?
 }
 
-public extension JsonConvertible {
+public extension JSONConvertible {
     
     init?(jsonString: String) {
         guard let data = jsonString.data(using: .utf8) else { return nil }
@@ -30,7 +30,7 @@ public extension JsonConvertible {
         }
     }
     
-    func toJson()->String? {
+    func toJSON()->String? {
         guard let data = toData() else { return nil }
         return String(data: data, encoding: .utf8)
     }
