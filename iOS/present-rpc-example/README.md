@@ -1,7 +1,7 @@
 
 # Present RPC iOS Client Example
 
-##  Install the protobuffer compiler
+##  Install the Protocol Buffer compiler
 
 Note: the generated file is included in this repository so this step is unnecessary if you just want to try the code.
 
@@ -16,10 +16,10 @@ From the project directory run `protoc` to update the generated files:
 or use the provided `build-protos.sh`
 
 
-## Run the example server
+## Run the Example Server
 
 See `java/example/README.md` for instructions to run the local server with the example `EchoService`
 
-## Run the example client
+## Run the Example Client
 
 Run the example application in the XCode simulator and look at the console for results.
