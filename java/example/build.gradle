@@ -6,6 +6,8 @@ buildscript {
 
   dependencies {
     classpath 'co.present.present-rpc:rpc-compiler:0.1-SNAPSHOT'
+    classpath 'co.present.present-rpc:javascript-generator:0.1-SNAPSHOT'
+    classpath 'org.gretty:gretty:+'
   }
 }
 
@@ -14,14 +16,28 @@ repositories {
   jcenter()
 }
 
-apply plugin: 'application'
 apply plugin: 'present-rpc-compiler'
 
-application {
-  mainClassName = 'example.Main'
-}
+// Generates 'build/js/echo.js'. Adds 'generateJavascriptServices' task.
+apply plugin: 'present-rpc-javascript-generator'
+
+apply plugin: 'war'
+apply plugin: 'org.gretty'
 
 dependencies {
   implementation 'co.present.present-rpc:rpc-server:0.1-SNAPSHOT'
   implementation 'org.eclipse.jetty:jetty-servlet:9.4.15.v20190215'
+}
+
+// Generate Javascript services and include them in the war.
+war {
+  dependsOn 'generateJavascriptServices'
+  from 'build/js'
+}
+
+gretty {
+  extraResourceBase 'build/js'
+  httpPort = 8080
+  contextPath = '/'
+  scanInterval = 1
 }

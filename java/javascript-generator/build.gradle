@@ -11,17 +11,18 @@ dependencies {
     implementation deps.wire.compiler
     implementation deps.wire.schema
     implementation 'info.picocli:picocli:3.9.5'
+    implementation 'com.github.spullara.mustache.java:compiler:0.9.5'
 }
 
 application {
-    mainClassName = 'present.rpc.RpcCompiler'
+    mainClassName = 'present.rpc.JavascriptGenerator'
 }
 
 gradlePlugin {
     plugins {
-        rpcCompiler {
-            id = 'present-rpc-compiler'
-            implementationClass = 'present.rpc.RpcCompilerPlugin'
+        jsGenerator {
+            id = 'present-rpc-javascript-generator'
+            implementationClass = 'present.rpc.JavascriptGeneratorPlugin'
         }
     }
 }

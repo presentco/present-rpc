@@ -3,7 +3,7 @@
 ## Run the Server
 
 ```
-$ gradle run
+$ gradle appRun
 ```
 
 ## Call the Server

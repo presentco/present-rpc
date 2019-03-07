@@ -7,10 +7,10 @@ Simple, idiomatic, [Protocol Buffer-based](https://developers.google.com/protoco
 * Simple! Post a JSON object, and receive a JSON object back.
 * Clearly define APIs using Protocol Buffers.
 * REST-friendly: Use your familiar tools.
-* Optionally use Protocol Buffer encoding (instead of JSON). It's more efficient, and you can safely rename fields.
+* Optionally use Protocol Buffer binary encoding (instead of JSON). It's more efficient, and you can safely rename fields.
 * Transport agnostic (currently supports 
 HTTP, more to come!)
-* [Java client and server libraries](https://github.com/presentco/present-rpc/tree/master/java)
+* [Java client and server libraries](https://github.com/presentco/present-rpc/blob/master/java/README.md)
 * Works with [App Engine](https://cloud.google.com/appengine/docs/java/)!
 
 ## By Example

@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import org.gradle.api.Plugin;
-import org.gradle.api.Project;
 import picocli.CommandLine;
 
 import static picocli.CommandLine.*;
@@ -41,7 +39,7 @@ public class RpcCompiler {
   }
 
   private void execute() throws IOException {
-    new WireServiceGenerator(System.out::printf, Sets.newHashSet(protoPaths),
+    new ServiceGenerator(System.out::printf, Sets.newHashSet(protoPaths),
         Sets.newHashSet(files), javaOut).execute();
   }
 }

@@ -1,0 +1,18 @@
+<html>
+<head>
+  <script src="echo.js"></script>
+</head>
+<body>
+  <div id="container">Result: </div>
+  <script>
+    var container = document.getElementById("container");
+
+    var service = new EchoService('http://localhost:8080');
+    service.echo({value: 42}).then(function(result) {
+      container.innerHTML += result.value;
+    }).catch(function(error) {
+      container.innerHTML += error.code + ' ' + error.message;
+    });
+  </script>
+</body>
+</html>
