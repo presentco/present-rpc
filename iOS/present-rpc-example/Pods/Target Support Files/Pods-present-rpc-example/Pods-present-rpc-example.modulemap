@@ -1,6 +1,0 @@
-framework module Pods_present_rpc_example {
-  umbrella header "Pods-present-rpc-example-umbrella.h"
-
-  export *
-  module * { export * }
-}
