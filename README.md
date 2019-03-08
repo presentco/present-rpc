@@ -72,11 +72,15 @@ That's it! [Here's a complete example](https://github.com/presentco/present-rpc/
 ## Why Protocol Buffers?
 
 Some people like to use JSON alone, but JSON is a wire format, not an
-API definition language. [Protocol Buffer](https://developers.google.com/protocol-buffers/docs/proto3) 
-are a clean, simple, mature way to define APIs. You can generate client 
-and server code and API documentation from Protocol Buffer definitions, 
-saving effort, and ensuring everything stays in sync. You can still use JSON 
-as the wire format, or you can use the more efficient Protocol Buffer binary 
+API definition language. [Protocol Buffers](https://developers.google.com/protocol-buffers/docs/proto3) 
+are two things:
+
+1. A clean, simple, mature way to define APIs
+2. A binary wire format
+
+You can generate client  and server code and API documentation from 
+Protocol Buffer definitions, saving effort, and ensuring everything stays in 
+sync. You can use JSON as the wire format, or you can use the more efficient Protocol Buffer binary 
 format, which also enables you to change field names without breaking existing 
 clients.
 
