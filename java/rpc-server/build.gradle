@@ -1,6 +1,10 @@
-apply plugin: 'java-library'
+plugins {
+  id 'java-library'
+  id 'maven-publish'
+//  id 'signing'
+}
 
-description 'Present RPC server library'
+description = 'Present RPC server library'
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -50,3 +54,6 @@ compileTestJava {
 
 sourceSets.test.java.srcDirs += generatedSourcesDir
 
+// Maven publishing
+
+//evaluate(new File("include/publish.groovy"))

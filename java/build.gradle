@@ -58,8 +58,8 @@ plugins {
 apply plugin: 'nebula-aggregate-javadocs'
 
 subprojects {
-    group = 'co.present.present'
-    version = '0.1'
+    group = 'co.present'
+    version = VERSION_NAME
 
     repositories {
         jcenter()
