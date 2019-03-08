@@ -11,16 +11,12 @@ a clean, lightweight Protocol Buffer compiler for Java.
 
 ## Service Generation
 
-The `present-rpc-compiler` Gradle plugin generates code from protos in
+The [`present-rpc-compiler`](https://github.com/presentco/present-rpc/blob/master/java/rpc-compiler/README.md) Gradle plugin generates code from protos in
 `src/main/proto` and automatically compiles it along with your other
 Java code. To use the plugin, add this code to your `build.gradle` file:
 
 ```groovy
 buildscript {
-  repositories {
-    jcenter()
-  }
-
   dependencies {
     classpath 'co.present.present-rpc:rpc-compiler:0.1-SNAPSHOT'
   }
@@ -29,7 +25,7 @@ buildscript {
 apply plugin: 'present-rpc-compiler'
 ```
 
-Don't use Gradle? Try the `present.rpc.RpcCompiler` command line tool instead.
+Don't use Gradle? Try the [command line tool](https://github.com/presentco/present-rpc/blob/master/java/rpc-compiler/README.md).
 
 ## Example: `EchoService`
 
@@ -81,6 +77,8 @@ public class EchoFilter extends RpcFilter {{
 }}
 ```
 
+**Note:** The double curly braces (`{{ ... }}`) are shorthand for a constructor.
+
 To add another service, simply call `service()` again.
 
 Finally, map it in `web.xml`:
@@ -117,4 +115,6 @@ EchoResponse response = echo.echo(new EchoRequest(42));
 assertEquals(42, (int) response.value);
 ```
 
-That's it!
+## Headers
+
+To get and set request headers, implement an `RpcInterceptor`.
