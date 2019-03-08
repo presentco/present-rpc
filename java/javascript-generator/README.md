@@ -25,7 +25,7 @@ service.echo({value: 42}).then(function(result) {
 });
 ```
 
-As you can see, the generated methods return `Promise`s.
+As you can see, the generated methods return [`Promise`s](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
 
 You can set request headers like so:
 
@@ -37,8 +37,46 @@ service.headers = {
 
 [Here's a complete example](https://github.com/presentco/present-rpc/tree/master/java/example).
 
-## Download
+## Usage
 
+Download [present-rpc-javascript-generator.jar](https://github.com/presentco/present-rpc/raw/master/java/javascript-generator/build/libs/present-rpc-javascript-generator.jar).
+
+```bash
+Usage: java -jar present-rpc-javascript-generator.jar [--out=<out>]
+                                                      [--protos=<protos>]...
+                                                      [<files>...]
+      --protos=<protos>   protos directory
+      --out=<out>         output directory
+      [<files>...]        proto files (optional)
 ```
 
+## Gradle
+
+The `present-rpc-javascript-generator` Gradle plugin will generate Javascript
+in `build/js` from protos in `src/main/proto`:
+
+```groovy
+buildscript {
+  repositories {
+    jcenter()
+  }
+
+  dependencies {
+    classpath 'co.present.present-rpc:javascript-generator:0.1-SNAPSHOT'
+  }
+}
+
+repositories {
+  jcenter()
+}
+
+// Generates 'build/js/echo.js'. Adds 'generateJavascriptServices' task.
+apply plugin: 'present-rpc-javascript-generator'
+apply plugin: 'war'
+
+// Generate Javascript services and include them in the war.
+war {
+  dependsOn 'generateJavascriptServices'
+  from 'build/js'
+}
 ```

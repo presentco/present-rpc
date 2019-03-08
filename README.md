@@ -10,9 +10,14 @@ Simple, idiomatic, [Protocol Buffer-based](https://developers.google.com/protoco
 * Optionally use Protocol Buffer binary encoding (instead of JSON). It's more efficient, and you can safely rename fields.
 * Transport agnostic (currently supports 
 HTTP, more to come!)
-* [Java client and server libraries](https://github.com/presentco/present-rpc/blob/master/java/README.md)
 * Works with [App Engine](https://cloud.google.com/appengine/docs/java/)!
 
+## Platforms
+
+* [Java client and server libraries](https://github.com/presentco/present-rpc/blob/master/java/README.md)
+* [Javascript clients](https://github.com/presentco/present-rpc/blob/master/java/javascript-generator/README.md)
+* [iOS (Swift)](https://github.com/presentco/present-rpc/blob/master/iOS/present-rpc-example/README.md)
+* You can also just use JSON! See the spec below.
 ## By Example
 
 Here's a Protocol Buffer definition for a service that echoes a value back to you:
@@ -61,7 +66,8 @@ are a clean, simple, mature way to define APIs. You can generate client
 and server code and API documentation from Protocol Buffer definitions, 
 saving effort, and ensuring everything stays in sync. You can still use JSON 
 as the wire format, or you can use the more efficient Protocol Buffer binary 
-format which enables you to change field names without breaking existing clients.
+format, which also enables you to change field names without breaking existing 
+clients.
 
 ## What about gRPC?
 
