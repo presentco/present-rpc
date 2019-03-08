@@ -5,7 +5,7 @@ a clean, lightweight Protocol Buffer compiler for Java.
 
 ## Modules
 
-* `rpc-compiler`: Generate Java code for Protocol Buffer services
+* `rpc-compiler`: Generate Java and Javascript code for Protocol Buffer services
 * `rpc-client`: Call Present RPC services from Java
 * `rpc-server`: Implement Present RPC services in Java
 

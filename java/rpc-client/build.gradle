@@ -1,7 +1,8 @@
 plugins {
   id 'java-library'
-  id 'com.vanniktech.maven.publish'
 }
+
+description 'Present RPC client library'
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'

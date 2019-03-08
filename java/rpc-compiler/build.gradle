@@ -1,8 +1,10 @@
 plugins {
-    id 'application'
+    id 'java-library'
     id 'java-gradle-plugin'
-    id 'com.vanniktech.maven.publish'
+    id 'com.github.johnrengelman.shadow' version '5.0.0'
 }
+
+description 'Present RPC compiler'
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -11,10 +13,13 @@ dependencies {
     implementation deps.wire.compiler
     implementation deps.wire.schema
     implementation 'info.picocli:picocli:3.9.5'
+    implementation 'com.github.spullara.mustache.java:compiler:0.9.5'
 }
 
-application {
-    mainClassName = 'present.rpc.RpcCompiler'
+jar {
+    manifest {
+        attributes 'Main-Class': 'present.rpc.RpcCompiler'
+    }
 }
 
 gradlePlugin {
@@ -24,4 +29,15 @@ gradlePlugin {
             implementationClass = 'present.rpc.RpcCompilerPlugin'
         }
     }
+}
+
+shadowJar {
+    baseName = 'present-rpc-compiler'
+    classifier = null
+    version = null
+    minimize()
+}
+
+build {
+    dependsOn 'shadowJar'
 }

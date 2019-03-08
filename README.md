@@ -1,34 +1,36 @@
 # Present RPC
 
-Simple, idiomatic, [Protocol Buffer-based](https://developers.google.com/protocol-buffers/docs/proto3) RPCs
+Simple, idiomatic RPCs for Java, Javascript, Android, iOS, and more
 
 ## Features
 
-* Simple! Post a JSON object, and receive a JSON object back.
-* Clearly define APIs using Protocol Buffers.
+* Simple! Post JSON, get JSON back.
+* Clearly define APIs using [Protocol Buffers](https://developers.google.com/protocol-buffers/docs/proto3)
 * REST-friendly: Use your familiar tools.
-* Optionally use Protocol Buffer binary encoding (instead of JSON). It's more efficient, and you can safely rename fields.
+* Supports Protocol Buffer binary encoding for improved performance and compatibility.
 * Transport agnostic (currently supports 
 HTTP, more to come!)
 * Works with [App Engine](https://cloud.google.com/appengine/docs/java/)!
 
-## Platforms
+## Supported Platforms
 
-Present RPC has two layers:
+Present RPC has two logical layers:
 
-1. Transport (like HTTP)
-2. Library (client and/or server)
+1. **Transport:** The underlying protocols, like [HTTP](#http-protocol-specification)
+2. **Library:** Language-specific code for clients and servers
 
-A library can theoretically support multiple transports so you can reuse your
+A library can theoretically support multiple transports, enabling you to reuse
 client and server code.
 
 We currently provide libraries for:
 
 * [Java clients and servers](https://github.com/presentco/present-rpc/blob/master/java/README.md)
-* [Javascript clients](https://github.com/presentco/present-rpc/blob/master/java/javascript-generator/README.md)
+* [Javascript clients](#javascript-clients)
 * [iOS (Swift) clients](https://github.com/presentco/present-rpc/blob/master/iOS/present-rpc-example/README.md)
-* Or, you can just use JSON! See the entire spec below.
-## By Example
+
+You can also just roll your own client or server using JSON. See our [simple HTTP-based spec below](#http-protocol-specification).
+
+## Example
 
 Here's a Protocol Buffer definition for a service that echoes a value back to you:
 
@@ -53,14 +55,39 @@ Content-Length: 12
 {"value":42}
 ```
 
+## Javascript Clients
+
+Use [`present-rpc-compiler`](https://github.com/presentco/present-rpc/blob/master/java/rpc-compiler/README.md)
+to generate Javascript client libraries from Protocol Buffer definitions.
+
+Running it against the [`echo.proto`](#example) example from above will generate 
+[`echo.js`](), 
+which we can use to invoke a remote `EchoService`:
+
+```javascript
+var service = new EchoService('http://localhost:8080');
+service.echo({value: 42}).then(function(result) {
+  alert('The answer is ' + result.value + '.');
+});
+```
+
+As you can see, the generated functions return [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+Set request headers before RPC calls like so:
+
+```javascript
+service.headers = {
+  'Name', 'Value'
+};
+```
+
 That's it! [Here's a complete example](https://github.com/presentco/present-rpc/tree/master/java/example).
 
 ## HTTP Protocol Specification
 
 * The client encodes the RPC argument and `POST`s it in the HTTP request body to `/[Service Name]/[Method Name]`.
 * The client may specify an encoding in the `Content-Type` request header: 
-  * JSON: `application/json`
-  * Protocol Buffers: `application/x-protobuf`
+  * JSON (required): `application/json`
+  * Protocol Buffers (optional): `application/x-protobuf`
   * JSON is the default. 
 * The server responds with one of the following HTTP response codes:
   * `200` - Successful
@@ -89,6 +116,7 @@ clients.
 gRPC depends on HTTP/2 which doesn't work everywhere (App Engine, Cloud Functions, 
 etc.). [gRPC-Web](https://github.com/grpc/grpc-web) is complicated, non-idiotmatic,
 and doesn't help here. Present RPC supports HTTP 1.x, it can benefit from
-the performance improvements in HTTP/2, and its libraries can support
+the performance improvements in HTTP/2 (just like gRPC), and its libraries can support
 other transports entirely. Present RPC doesn't support streaming yet,
-but it can in the future (please send a patch!).
+but it can in the future (please send a patch!). Present RPC is trivial to
+understand, support, and use.
