@@ -24,7 +24,7 @@ client and server code.
 
 We currently provide libraries for:
 
-* [Java client and server libraries](https://github.com/presentco/present-rpc/blob/master/java/README.md)
+* [Java clients and servers](https://github.com/presentco/present-rpc/blob/master/java/README.md)
 * [Javascript clients](https://github.com/presentco/present-rpc/blob/master/java/javascript-generator/README.md)
 * [iOS (Swift) clients](https://github.com/presentco/present-rpc/blob/master/iOS/present-rpc-example/README.md)
 * Or, you can just use JSON! See the entire spec below.
