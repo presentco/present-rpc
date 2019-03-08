@@ -43,11 +43,11 @@ Download [present-rpc-javascript-generator.jar](https://github.com/presentco/pre
 
 ```bash
 java -jar present-rpc-javascript-generator.jar [--out=<out>]
-                                                      [--protos=<protos>]...
-                                                      [<files>...]
+                                               [--protos=<protos>]...
+                                               [<files>...]
       --protos=<protos>   protos directory
       --out=<out>         output directory
-      [<files>...]        proto files (optional)
+      [<files>...]        individual proto files (optional)
 ```
 
 ## Gradle
