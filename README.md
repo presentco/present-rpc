@@ -16,8 +16,8 @@ HTTP, more to come!)
 
 * [Java client and server libraries](https://github.com/presentco/present-rpc/blob/master/java/README.md)
 * [Javascript clients](https://github.com/presentco/present-rpc/blob/master/java/javascript-generator/README.md)
-* [iOS (Swift)](https://github.com/presentco/present-rpc/blob/master/iOS/present-rpc-example/README.md)
-* You can also just use JSON! See the spec below.
+* [iOS (Swift) clients](https://github.com/presentco/present-rpc/blob/master/iOS/present-rpc-example/README.md)
+* Or, you can just use JSON! See the entire spec below.
 ## By Example
 
 Here's a Protocol Buffer definition for a service that echoes a value back to you:
@@ -54,8 +54,9 @@ That's it! [Here's a complete example](https://github.com/presentco/present-rpc/
   * JSON is the default. 
 * The server responds with one of the following HTTP response codes:
   * `200` - Successful
-  * `4XX` - Client Error
-  * `5XX` - Server Error
+  * `401` - Authentication required
+  * `4XX` - A different client error
+  * `5XX` - Server error
 * If the RPC is successful, the server will encode the result and return it in the HTTP response body using the same encoding as the request.
 
 ## Why Protocol Buffers?
@@ -71,8 +72,8 @@ clients.
 
 ## What about gRPC?
 
-gRPC depends on HTTP/2 which doesn't work everywhere (like App Engine).
-[gRPC-Web](https://github.com/grpc/grpc-web) is complicated, non-idiotmatic,
+gRPC depends on HTTP/2 which doesn't work everywhere (App Engine, Cloud Functions, 
+etc.). [gRPC-Web](https://github.com/grpc/grpc-web) is complicated, non-idiotmatic,
 and doesn't help here. Present RPC supports HTTP 1.x, it can benefit from
 the performance improvements in HTTP/2, and its libraries can support
 other transports entirely. Present RPC doesn't support streaming yet,
