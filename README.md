@@ -17,7 +17,7 @@ HTTP, more to come!)
 
 Here's a Protocol Buffer definition for a service that echoes a value back to you:
 
-```
+```proto
 service EchoService {
   rpc echo(EchoMessage) returns (EchoMessage);
 }
@@ -29,7 +29,7 @@ message EchoMessage {
 
 You can call it with `curl` like so:
 
-```
+```bash
 $ curl -i -H "Content-Type: application/json" -X POST -d '{value:42}' http://localhost:8080/EchoService/echo
 HTTP/1.1 200 OK
 Content-Type: application/json
@@ -38,7 +38,7 @@ Content-Length: 12
 {"value":42}
 ```
 
-That's it!
+That's it! [Here's a complete example](https://github.com/presentco/present-rpc/tree/master/java/example).
 
 ## HTTP Protocol Specification
 

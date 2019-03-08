@@ -24,7 +24,7 @@ import picocli.CommandLine;
 import static com.google.common.base.CaseFormat.LOWER_CAMEL;
 import static com.google.common.base.CaseFormat.UPPER_CAMEL;
 
-final class JavascriptGenerator {
+public class JavascriptGenerator {
 
   private static final Mustache serviceTemplate = Mustaches.compileResource("service.js");
   private static final Mustache methodTemplate = Mustaches.compileResource("method.js");
@@ -34,7 +34,7 @@ final class JavascriptGenerator {
   private final Set<String> protos;
   private final String generatedSourceDirectory;
 
-  JavascriptGenerator(Log log, Set<String> sources,
+  private JavascriptGenerator(Log log, Set<String> sources,
       Set<String> protos, String generatedSourceDirectory) {
     this.log = log;
     this.sources = sources;
@@ -42,10 +42,11 @@ final class JavascriptGenerator {
     this.generatedSourceDirectory = generatedSourceDirectory;
   }
 
-  void execute() throws IOException {
+  private void execute() throws IOException {
     Schema schema = loadSchema();
     new File(generatedSourceDirectory).mkdirs();
     for (ProtoFile protoFile : schema.protoFiles()) {
+      if (protoFile.services().isEmpty()) continue;
       File jsFile = new File(generatedSourceDirectory, protoFile.name() + ".js");
       try (Writer out = new OutputStreamWriter(new BufferedOutputStream(
           new FileOutputStream(jsFile)), StandardCharsets.UTF_8)) {
@@ -81,15 +82,16 @@ final class JavascriptGenerator {
     void info(String format, Object... args);
   }
 
+  @CommandLine.Command(name = "java -jar present-rpc-javascript-generator.jar")
   private static class Args {
-    @CommandLine.Parameters
-    private List<String> files = new ArrayList<>();
+    @CommandLine.Option(names = "--protos", description = "protos directory")
+    private List<String> protos = new ArrayList<>();
 
-    @CommandLine.Option(names = "--out")
+    @CommandLine.Option(names = "--out", description = "output directory")
     private String out;
 
-    @CommandLine.Option(names = "--protos")
-    private List<String> protos = new ArrayList<>();
+    @CommandLine.Parameters(description = "proto files (optional)")
+    private List<String> files = new ArrayList<>();
   }
 
   public static void main(String[] args) throws IOException {

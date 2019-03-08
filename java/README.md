@@ -15,7 +15,7 @@ The `present-rpc-compiler` Gradle plugin generates code from protos in
 `src/main/proto` and automatically compiles it along with your other
 Java code. To use the plugin, add this code to your `build.gradle` file:
 
-```
+```groovy
 buildscript {
   repositories {
     jcenter()
@@ -35,7 +35,7 @@ Don't use Gradle? Try the `present.rpc.RpcCompiler` command line tool instead.
 
 Put `echo.proto` in `src/main/proto`:
 
-```
+```proto
 service EchoService {
   rpc echo(EchoMessage) returns (EchoMessage);
 }
@@ -47,7 +47,7 @@ message EchoMessage {
 
 The `present-rpc-compiler` plugin will generate `EchoService.java`:
 
-```
+```java
 public interface EchoService {
   EchoMessage echo(EchoMessage request) throws IOException;
 }
@@ -57,7 +57,7 @@ public interface EchoService {
 
 Add `rpc-server` to `build.gradle`:
 
-```
+```groovy
 dependencies {
   implementation 'co.present.present-rpc:rpc-server:0.1-SNAPSHOT'
 }
@@ -65,7 +65,7 @@ dependencies {
 
 Implement `EchoService`:
 
-```
+```java
 public class EchoServiceImpl implements EchoService {
   @Override public EchoMessage echo(EchoMessage request) {
     return new EchoMessage(request.value);
@@ -75,15 +75,17 @@ public class EchoServiceImpl implements EchoService {
 
 Extend `RpcFilter`. This exposes your service and chosen implementation.
 
-```
+```java
 public class EchoFilter extends RpcFilter {{
   service(EchoService.class, new EchoServiceImpl(), null);
 }}
 ```
 
+To add another service, simply call `service()` again.
+
 Finally, map it in `web.xml`:
 
-```
+```xml
 <filter>
   <filter-name>rpcFilter</filter-name>
   <filter-class>EchoFilter</filter-class>
@@ -101,7 +103,7 @@ Finally, map it in `web.xml`:
 
 Add `rpc-client` to `build.gradle`:
 
-```
+```groovy
 dependencies {
   implementation 'co.present.present-rpc:rpc-client:0.1-SNAPSHOT'
 }
@@ -109,7 +111,7 @@ dependencies {
 
 Create a client stub and call it:
 
-```
+```java
 EchoService echo = RpcClient.create("http://localhost:8080", EchoService.class, null);
 EchoResponse response = echo.echo(new EchoRequest(42));
 assertEquals(42, (int) response.value);
