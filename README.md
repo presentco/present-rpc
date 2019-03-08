@@ -14,6 +14,16 @@ HTTP, more to come!)
 
 ## Platforms
 
+Present RPC has two layers:
+
+1. Transport (like HTTP)
+2. Library (client and/or server)
+
+A library can theoretically support multiple transports so you can reuse your
+client and server code.
+
+We currently provide libraries for:
+
 * [Java client and server libraries](https://github.com/presentco/present-rpc/blob/master/java/README.md)
 * [Javascript clients](https://github.com/presentco/present-rpc/blob/master/java/javascript-generator/README.md)
 * [iOS (Swift) clients](https://github.com/presentco/present-rpc/blob/master/iOS/present-rpc-example/README.md)
