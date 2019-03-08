@@ -16,7 +16,7 @@ message EchoMessage {
 }
 ```
 
-It will generate `echo.js` which you can use to invoke a remote `EchoService`:
+It will generate `echo.js`, which you can use to invoke a remote `EchoService`:
 
 ```javascript
 var service = new EchoService('http://localhost:8080');
@@ -25,7 +25,7 @@ service.echo({value: 42}).then(function(result) {
 });
 ```
 
-As you can see, the generated methods return [`Promise`s](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+As you can see, the generated functions return [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
 
 You can set request headers like so:
 
@@ -39,10 +39,10 @@ service.headers = {
 
 ## Usage
 
-Download [present-rpc-javascript-generator.jar](https://github.com/presentco/present-rpc/raw/master/java/javascript-generator/build/libs/present-rpc-javascript-generator.jar).
+Download [present-rpc-javascript-generator.jar](https://github.com/presentco/present-rpc/raw/master/java/javascript-generator/build/libs/present-rpc-javascript-generator.jar) and then call it like so:
 
 ```bash
-Usage: java -jar present-rpc-javascript-generator.jar [--out=<out>]
+java -jar present-rpc-javascript-generator.jar [--out=<out>]
                                                       [--protos=<protos>]...
                                                       [<files>...]
       --protos=<protos>   protos directory
