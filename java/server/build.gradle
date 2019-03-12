@@ -1,7 +1,5 @@
 plugins {
   id 'java-library'
-  id 'maven-publish'
-//  id 'signing'
 }
 
 description = 'Present RPC server library'
@@ -10,7 +8,7 @@ sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
 ext {
-  generatedSourcesDir = "${buildDir}/generated/src/java"
+  generatedSourcesDir = "${buildDir}/java"
 }
 
 configurations {
@@ -20,14 +18,14 @@ configurations {
 dependencies {
   compile deps.servlet
 
-  api project(':rpc-core')
+  api project(':core')
   implementation deps.gson
   implementation deps.guava
   implementation deps.slf4j.api
   implementation deps.wire.runtime
   implementation deps.wire.gson
 
-  testImplementation project(':rpc-client')
+  testImplementation project(':client')
   testImplementation deps.junit
 
   testImplementation 'org.eclipse.jetty:jetty-servlet:9.4.15.v20190215'
@@ -36,7 +34,7 @@ dependencies {
   // Force older version of okio
   testImplementation 'com.squareup.okio:okio:1.13.0'
 
-  wire project(':rpc-compiler')
+  wire project(':compiler')
 }
 
 task generateTestProtos(type: JavaExec) {
@@ -54,6 +52,13 @@ compileTestJava {
 
 sourceSets.test.java.srcDirs += generatedSourcesDir
 
-// Maven publishing
-
-//evaluate(new File("include/publish.groovy"))
+//// Maven publishing
+//publishing {
+//  publications {
+//    mavenJava(MavenPublication) {
+//      pom {
+//        name = project.description
+//      }
+//    }
+//  }
+//}

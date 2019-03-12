@@ -1,7 +1,6 @@
 rootProject.name = 'present-rpc'
 
-include('rpc-client')
-include('rpc-core')
-include('rpc-compiler')
-include('rpc-server')
-include('javascript-generator')
+include('client')
+include('core')
+include('compiler')
+include('server')
