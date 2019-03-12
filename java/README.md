@@ -51,7 +51,7 @@ public interface EchoService {
 
 ### The Server
 
-Add `server` dependency tto `build.gradle`:
+Add `server` dependency to `build.gradle`:
 
 ```groovy
 dependencies {
