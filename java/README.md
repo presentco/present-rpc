@@ -18,7 +18,7 @@ Java code. To use the plugin, add this code to your `build.gradle` file:
 ```groovy
 buildscript {
   dependencies {
-    classpath 'co.present.present-rpc:rpc-compiler:0.1-SNAPSHOT'
+    classpath 'co.present.rpc:compiler:0.1-SNAPSHOT'
   }
 }
 
@@ -55,7 +55,7 @@ Add `rpc-server` to `build.gradle`:
 
 ```groovy
 dependencies {
-  implementation 'co.present.present-rpc:rpc-server:0.1-SNAPSHOT'
+  implementation 'co.present.rpc:server:0.1-SNAPSHOT'
 }
 ```
 
@@ -103,7 +103,7 @@ Add `rpc-client` to `build.gradle`:
 
 ```groovy
 dependencies {
-  implementation 'co.present.present-rpc:rpc-client:0.1-SNAPSHOT'
+  implementation 'co.present.rpc:client:0.1-SNAPSHOT'
 }
 ```
 
