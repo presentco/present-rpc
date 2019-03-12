@@ -70,7 +70,7 @@ public class RpcCompiler {
     }
 
     if (compiler.jsOut != null) {
-      new JavascriptGenerator(System.out::printf, schema, compiler.javaOut).execute();
+      new JavascriptGenerator(System.out::printf, schema, compiler.jsOut).execute();
     }
   }
 }

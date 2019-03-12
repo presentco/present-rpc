@@ -5,7 +5,7 @@ buildscript {
   }
 
   dependencies {
-    classpath '-compiler:0.1-SNAPSHOT'
+    classpath 'co.present.rpc:compiler:0.1-SNAPSHOT'
     classpath 'org.gretty:gretty:+'
   }
 }
@@ -28,7 +28,7 @@ dependencies {
 
 // Generate Javascript services and include them in the war.
 war {
-  dependsOn 'generateJavascriptServices'
+  dependsOn 'presentRpcJavascript'
   from 'build/js'
 }
 
