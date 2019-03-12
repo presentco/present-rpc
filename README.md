@@ -80,6 +80,19 @@ service.headers = {
 };
 ```
 
+Use `catch()` to handle errors:
+
+```javascript
+service.echo(...)
+  .then(...)
+  .catch(function(e) {
+    // e.code = HTTP status code
+    // e.message = HTTP status message
+    // e.xhr = The underlying XMLHttpRequest
+  });
+
+```
+
 That's it! [Here's a complete example](https://github.com/presentco/present-rpc/tree/master/java/example).
 
 ## HTTP Protocol Specification
