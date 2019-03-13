@@ -18,7 +18,7 @@ in Java, so its command line options are supported, too.
 
 ## Gradle
 
-The `present-rpc-compiler` Gradle plugin reads protos from `src/main/proto`
+The Present RPC Gradle plugin reads protos from `src/main/proto`
 and outputs Java to `build/java`.
 
 Run the `presentRpcJavascript` task to output Javascript to `build/js`, too. 
@@ -33,7 +33,7 @@ buildscript {
 }
 
 // Output Java interfaces to build/java.
-apply plugin: 'present-rpc-compiler'
+apply plugin: 'co.present.rpc.compiler'
 
 apply plugin: 'war'
 

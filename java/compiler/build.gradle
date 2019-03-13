@@ -25,7 +25,7 @@ jar {
 gradlePlugin {
     plugins {
         rpcCompiler {
-            id = 'present-rpc-compiler'
+            id = 'co.present.rpc.compiler'
             implementationClass = 'present.rpc.RpcCompilerPlugin'
         }
     }

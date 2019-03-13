@@ -138,8 +138,9 @@ subprojects {
                 // Snapshot repo
                 url 'https://oss.sonatype.org/content/repositories/snapshots/'
                 credentials {
-                    username "$sonatypeUsername"
-                    password "$sonatypePassword"
+                    // Using findProperty() avoids breaking the build when these properties are missing.
+                    username findProperty('sonatypeUsername')
+                    password findProperty('sonatypePassword')
                 }
             }
         }

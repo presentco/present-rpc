@@ -61,7 +61,7 @@ Use [`present-rpc-compiler`](https://github.com/presentco/present-rpc/blob/maste
 to generate Javascript client libraries from Protocol Buffer definitions.
 
 Running it against the [`echo.proto`](#example) example from above will generate 
-[`echo.js`](), 
+[`echo.js`](https://github.com/presentco/present-rpc/blob/master/java/example/build/js/echo.js), 
 which we can use to invoke a remote `EchoService`:
 
 ```javascript
