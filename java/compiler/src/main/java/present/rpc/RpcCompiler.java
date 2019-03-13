@@ -30,6 +30,9 @@ public class RpcCompiler {
   @Option(names = "--js_out", description = "Javascript output directory")
   private String jsOut;
 
+  @Option(names = "--swift_out", description = "Swift output directory")
+  private String swiftOut;
+
   @Option(names = "--java_out", description = "Java output directory")
   private String javaOut;
 
@@ -71,6 +74,10 @@ public class RpcCompiler {
 
     if (compiler.jsOut != null) {
       new JavascriptGenerator(System.out::printf, schema, compiler.jsOut).execute();
+    }
+
+    if (compiler.swiftOut != null) {
+      new SwiftGenerator(System.out::printf, schema, compiler.swiftOut).execute();
     }
   }
 }
