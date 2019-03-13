@@ -1,19 +1,25 @@
 
 # Present RPC iOS Client Example
 
-##  Install the Protocol Buffer compiler
+##  Install the Protocol Buffer compiler 
 
-Note: the generated files are included in this repository so this step is unnecessary if you just want to try the code.
+*Note: the generated files are included in this repository so if you just want to try the code skip ahead to "Run the Example Server".*
 
-This installs the `protoc` command used to render `.proto` files to Swift source code.
+User Homebrew to install the `protoc` command used to render `.proto` files to Swift source code.
 
 `brew install swift-protobuf`
 
-From the project directory run `protoc` to update the generated files:
+## Generate the Client Code
 
-`protoc --swift_out=present-rpc-example --proto_path=../../java/example/src/main/proto echo.proto`
+From the project directory run the provided `build-protos.sh`, which executes the following commands:
 
-or use the provided `build-protos.sh`
+Run `protoc` to generate the protocol buffer message types:
+
+`protoc --swift_out=present-rpc-example/protos --proto_path=../../java/example/src/main/proto echo.proto`
+
+Run `present-rpc-compiler` to generate the client service stubs:
+
+`java -jar ../../java/compiler/build/libs/present-rpc-compiler.jar --proto_path=../../java/example/src/main/proto --swift_out=present-rpc-example/protos`
 
 
 ## Run the Example Server
