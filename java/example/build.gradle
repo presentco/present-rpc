@@ -1,7 +1,9 @@
 buildscript {
   repositories {
-    mavenLocal()
     jcenter()
+    maven {
+      url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
   }
 
   dependencies {
@@ -11,12 +13,14 @@ buildscript {
 }
 
 repositories {
-  mavenLocal()
   jcenter()
+  maven {
+    url 'https://oss.sonatype.org/content/repositories/snapshots/'
+  }
 }
 
 // Generates 'build/js/echo.js'. Adds 'generateJavascriptServices' task.
-apply plugin: 'present-rpc-compiler'
+apply plugin: 'co.present.rpc.compiler'
 
 apply plugin: 'war'
 apply plugin: 'org.gretty'
