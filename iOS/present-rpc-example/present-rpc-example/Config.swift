@@ -14,5 +14,5 @@ struct Config
     // For testing on a physical device replace "localhost" with the IP address of the local host.
     // Note: To allow testing without https we have overridden NSAppTransportSecurity in info.plist,
     // but production applications must use https URLs.
-    static let echoServiceUrl = URL(string: "http://localhost:8080/EchoService/echo")!
+    static let echoServiceUrl = URL(string: "http://localhost:8080/EchoService")!
 }

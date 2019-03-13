@@ -23,7 +23,7 @@ class ProtobufClientTest
             $0.value = 42
         }
 
-        var request = URLRequest(url: Config.echoServiceUrl)
+        var request = URLRequest(url: Config.echoServiceUrl.appendingPathComponent("echo"))
         request.httpMethod = "POST"
         request.httpBody = try! echoRequest.serializedData()
         request.addValue("application/x-protobuf", forHTTPHeaderField: "Content-Type")

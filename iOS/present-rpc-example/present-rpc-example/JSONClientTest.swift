@@ -28,7 +28,7 @@ class JSONClientTest
     {
         let echoRequest = EchoMessage(value: 42)
         
-        var request = URLRequest(url: Config.echoServiceUrl)
+        var request = URLRequest(url: Config.echoServiceUrl.appendingPathComponent("echo"))
         request.httpMethod = "POST"
         request.httpBody = echoRequest.toData() // {"value":42}
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
