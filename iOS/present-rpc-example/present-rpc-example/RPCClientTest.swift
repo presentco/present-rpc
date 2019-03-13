@@ -10,7 +10,7 @@ import Foundation
 
 //
 // If you want to talk to an RPC service using efficient protocol buffer serialization and
-// client service stubs that are generated for you are in the right place.
+// client service stubs that are generated for you, you are in the right place.
 // This example uses a generated client service stub to invoke a method on the EchoService with a minimum
 // of client side code.
 // This example requires that the Apple Swift protocol buffer compiler and Present RPC compiler are used to
