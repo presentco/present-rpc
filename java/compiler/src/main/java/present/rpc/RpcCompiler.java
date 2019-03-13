@@ -56,6 +56,8 @@ public class RpcCompiler {
       System.exit(0);
     }
 
+    Log log = (format, logArgs) -> System.out.printf(format + "\n", logArgs);
+
     // Parse protos
     SchemaLoader loader = new SchemaLoader();
     for (String source : compiler.protoPaths) loader.addSource(new File(source));
@@ -66,11 +68,11 @@ public class RpcCompiler {
       WireCompiler.main(args);
 
       // Generate services
-      new JavaGenerator(System.out::printf, schema, compiler.javaOut).execute();
+      new JavaGenerator(log, schema, compiler.javaOut).execute();
     }
 
     if (compiler.jsOut != null) {
-      new JavascriptGenerator(System.out::printf, schema, compiler.jsOut).execute();
+      new JavascriptGenerator(log, schema, compiler.jsOut).execute();
     }
   }
 }

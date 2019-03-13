@@ -22,7 +22,7 @@ buildscript {
   }
 }
 
-apply plugin: 'present-rpc-compiler'
+apply plugin: 'co.present.rpc.compiler'
 ```
 
 Don't use Gradle? Try the [command line tool](https://github.com/presentco/present-rpc/blob/master/java/rpc-compiler/README.md).
