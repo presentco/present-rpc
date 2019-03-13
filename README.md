@@ -5,7 +5,7 @@ Simple, idiomatic RPCs for Java, Javascript, Android, iOS, and more
 ## Features
 
 * Simple! Post JSON, get JSON back.
-* Clearly define APIs using [Protocol Buffers](https://developers.google.com/protocol-buffers/docs/proto3)
+* Clearly define APIs using [Protocol Buffers](https://developers.google.com/protocol-buffers/docs/proto3).
 * REST-friendly: Use your familiar tools.
 * Supports Protocol Buffer binary encoding for improved performance and compatibility.
 * Transport agnostic (currently supports 
@@ -78,6 +78,19 @@ Set request headers before RPC calls like so:
 service.headers = {
   'Name', 'Value'
 };
+```
+
+Use `catch()` to handle errors:
+
+```javascript
+service.echo(...)
+  .then(...)
+  .catch(function(e) {
+    // e.code = HTTP status code
+    // e.message = HTTP status message
+    // e.xhr = The underlying XMLHttpRequest
+  });
+
 ```
 
 That's it! [Here's a complete example](https://github.com/presentco/present-rpc/tree/master/java/example).

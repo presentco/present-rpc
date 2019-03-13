@@ -57,11 +57,117 @@ plugins {
 // To run: $ gradle :aggregateJavadocs
 apply plugin: 'nebula-aggregate-javadocs'
 
+// Maven publishing
+//
+// Note: Use `gradle publishToMavenLocal` to publish to Maven local.
+//
+// Set these properties in ~/.gradle/gradle.properties:
+//
+// signing.gnupg.keyName=[pgp key name]
+// signing.keyId=[pgp key name]
+// signing.password=[pgp key password]
+// signing.secretKeyRingFile=[private key ring file]
+//
+//sonatypeUsername=[Sonatype user]
+//sonatypePassword=[Sonatype password]
 subprojects {
-    group = 'co.present'
+    evaluationDependsOnChildren()
+    
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
+    apply plugin: 'signing'
+
+    group = GROUP
     version = VERSION_NAME
 
     repositories {
         jcenter()
+    }
+
+    task sourcesJar(type: Jar) {
+        from sourceSets.main.allJava
+        archiveClassifier = 'sources'
+    }
+
+
+    task javadocJar(type: Jar) {
+        from javadoc
+        archiveClassifier = 'javadoc'
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                artifactId = project.name
+                from components.java
+                artifact sourcesJar
+                artifact javadocJar
+                versionMapping {
+                    usage('java-api') {
+                        fromResolutionOf('runtimeClasspath')
+                    }
+                    usage('java-runtime') {
+                        fromResolutionResult()
+                    }
+                }
+                pom {
+                    url = 'http://github.com/presentco/present-rpc'
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'present'
+                            name = 'Present Company'
+                            email = 'hello@present.co'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:git@github.com:presentco/present-rpc.git'
+                        developerConnection = 'scm:git:git@github.com:presentco/present-rpc.git'
+                        url = 'http://github.com/presentco/present-rpc'
+                    }
+                }
+            }
+        }
+        repositories {
+            maven {
+                // Snapshot repo
+                url 'https://oss.sonatype.org/content/repositories/snapshots/'
+                credentials {
+                    username "$sonatypeUsername"
+                    password "$sonatypePassword"
+                }
+            }
+        }
+    }
+
+    signing {
+        sign publishing.publications.mavenJava
+    }
+
+    javadoc {
+        if (JavaVersion.current().isJava9Compatible()) {
+            options.addBooleanOption('html5', true)
+        }
+
+        // Suppress warnings
+        options.addStringOption('Xdoclint:none', '-quiet')
+    }
+
+    // Run this after the subproject so project.description is set.
+    afterEvaluate { Project project ->
+        publishing {
+            publications {
+                mavenJava(MavenPublication) {
+                    pom {
+                        name = project.description
+                    }
+                }
+            }
+        }
     }
 }

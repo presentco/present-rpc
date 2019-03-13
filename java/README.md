@@ -5,9 +5,9 @@ a clean, lightweight Protocol Buffer compiler for Java.
 
 ## Modules
 
-* `rpc-compiler`: Generate Java and Javascript code for Protocol Buffer services
-* `rpc-client`: Call Present RPC services from Java
-* `rpc-server`: Implement Present RPC services in Java
+* `compiler`: Generate Java and Javascript code for Protocol Buffer services
+* `client`: Call Present RPC services from Java
+* `server`: Implement Present RPC services in Java
 
 ## Service Generation
 
@@ -18,7 +18,7 @@ Java code. To use the plugin, add this code to your `build.gradle` file:
 ```groovy
 buildscript {
   dependencies {
-    classpath 'co.present.present-rpc:rpc-compiler:0.1-SNAPSHOT'
+    classpath 'co.present.rpc:compiler:0.1-SNAPSHOT'
   }
 }
 
@@ -51,11 +51,11 @@ public interface EchoService {
 
 ### The Server
 
-Add `rpc-server` to `build.gradle`:
+Add `server` dependency to `build.gradle`:
 
 ```groovy
 dependencies {
-  implementation 'co.present.present-rpc:rpc-server:0.1-SNAPSHOT'
+  implementation 'co.present.rpc:server:0.1-SNAPSHOT'
 }
 ```
 
@@ -99,11 +99,11 @@ Finally, map it in `web.xml`:
 
 ## The Client
 
-Add `rpc-client` to `build.gradle`:
+Add `client` dependency to `build.gradle`:
 
 ```groovy
 dependencies {
-  implementation 'co.present.present-rpc:rpc-client:0.1-SNAPSHOT'
+  implementation 'co.present.rpc:client:0.1-SNAPSHOT'
 }
 ```
 
