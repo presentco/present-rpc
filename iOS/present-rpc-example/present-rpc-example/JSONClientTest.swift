@@ -8,8 +8,15 @@
 
 import Foundation
 
-class JSONTest
+//
+// If you want to talk to an RPC service using JSON and your own networking code you are in the right place.
+// This example sends and receives JSON in an exchange with the EchoService using a plain URLRequest.
+// No protocol buffer libs or schema are required to talk to the service in this fashion.
+//
+class JSONClientTest
 {
+    // This helper class serializes itself to and initialize itself from JSON, however you can construct the
+    // JSON string yourself if desired.
     class EchoMessage: JSONConvertible {
         public var value: Int
         public init(value: Int) {
@@ -21,13 +28,7 @@ class JSONTest
     {
         let echoRequest = EchoMessage(value: 42)
         
-        // For running this test in the simulator:
-        // Run the EchoService on port 8080 of the local host.
-        // For testing on a real device you replace localhost with your local IP address.
-        // To allow testing without https we override NSAppTransportSecurity in info.plist.
-        let url = URL(string: "http://localhost:8080/EchoService/echo")!
-        
-        var request = URLRequest(url: url)
+        var request = URLRequest(url: Config.echoServiceUrl)
         request.httpMethod = "POST"
         request.httpBody = echoRequest.toData() // {"value":42}
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
