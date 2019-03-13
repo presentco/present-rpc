@@ -8,7 +8,14 @@
 
 import Foundation
 
-class ProtobufTest
+//
+// If you want to talk to an RPC service using efficient protocol buffer serialization and your own
+// networking code you are in the right place.
+// This example uses the generated protocol buffer class EchoRequest to serialize the data for
+// talking to the EchoService using a plain URLRequest.
+// This example requires that the Apple Swift protocol buffer compiler is used to generate the message classes.
+//
+class ProtobufClientTest
 {
     func run()
     {
@@ -16,13 +23,7 @@ class ProtobufTest
             $0.value = 42
         }
 
-        // For running this test in the simulator:
-        // Run the EchoService on port 8080 of the local host.
-        // For testing on a real device you replace localhost with your local IP address.
-        // To allow testing without https we override NSAppTransportSecurity in info.plist.
-        let url = URL(string: "http://localhost:8080/EchoService/echo")!
-        
-        var request = URLRequest(url: url)
+        var request = URLRequest(url: Config.echoServiceUrl.appendingPathComponent("echo"))
         request.httpMethod = "POST"
         request.httpBody = try! echoRequest.serializedData()
         request.addValue("application/x-protobuf", forHTTPHeaderField: "Content-Type")

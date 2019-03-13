@@ -14,8 +14,9 @@ class ViewController: UIViewController
         super.viewDidLoad()
         
         // Run the tests
-        JSONTest().run()
-        ProtobufTest().run()
+        JSONClientTest().run()
+        ProtobufClientTest().run()
+        RPCClientTest().run()
     }
 }
 

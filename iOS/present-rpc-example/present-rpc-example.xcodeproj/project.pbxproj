@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		434DE8252230B051004E633D /* JSONTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434DE8242230B051004E633D /* JSONTest.swift */; };
-		434DE8272230B121004E633D /* ProtobufTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434DE8262230B121004E633D /* ProtobufTest.swift */; };
+		434DE8252230B051004E633D /* JSONClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434DE8242230B051004E633D /* JSONClientTest.swift */; };
+		434DE8272230B121004E633D /* ProtobufClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434DE8262230B121004E633D /* ProtobufClientTest.swift */; };
 		434DE8382230B787004E633D /* echo.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434DE8362230B787004E633D /* echo.pb.swift */; };
 		434DE83C2230BB83004E633D /* JSONConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434DE83B2230BB83004E633D /* JSONConvertible.swift */; };
 		434DE83E2230BCB5004E633D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 434DE83D2230BCB5004E633D /* README.md */; };
@@ -17,12 +17,15 @@
 		4365E960223095430096A5AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4365E95E223095430096A5AE /* Main.storyboard */; };
 		4365E962223095430096A5AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4365E961223095430096A5AE /* Assets.xcassets */; };
 		4365E965223095430096A5AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4365E963223095430096A5AE /* LaunchScreen.storyboard */; };
+		43AF447D2239602F0012A0D3 /* RPCClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AF447C2239602F0012A0D3 /* RPCClientTest.swift */; };
+		43AF447F223963C70012A0D3 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AF447E223963C70012A0D3 /* Config.swift */; };
+		43AF448122397F460012A0D3 /* echo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AF448022397F460012A0D3 /* echo.swift */; };
 		522599F225D7587FFE37CA36 /* Pods_present_rpc_example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8141085E578FBD6D2FB6247 /* Pods_present_rpc_example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		434DE8242230B051004E633D /* JSONTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTest.swift; sourceTree = "<group>"; };
-		434DE8262230B121004E633D /* ProtobufTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtobufTest.swift; sourceTree = "<group>"; };
+		434DE8242230B051004E633D /* JSONClientTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONClientTest.swift; sourceTree = "<group>"; };
+		434DE8262230B121004E633D /* ProtobufClientTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtobufClientTest.swift; sourceTree = "<group>"; };
 		434DE8362230B787004E633D /* echo.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = echo.pb.swift; sourceTree = "<group>"; };
 		434DE83B2230BB83004E633D /* JSONConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONConvertible.swift; sourceTree = "<group>"; };
 		434DE83D2230BCB5004E633D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
@@ -33,6 +36,9 @@
 		4365E961223095430096A5AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4365E964223095430096A5AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4365E966223095430096A5AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		43AF447C2239602F0012A0D3 /* RPCClientTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPCClientTest.swift; sourceTree = "<group>"; };
+		43AF447E223963C70012A0D3 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		43AF448022397F460012A0D3 /* echo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = echo.swift; sourceTree = "<group>"; };
 		59081245423EDAD883EEE017 /* Pods-present-rpc-example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-present-rpc-example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-present-rpc-example/Pods-present-rpc-example.debug.xcconfig"; sourceTree = "<group>"; };
 		96EBCF1B14D741568B3801E2 /* Pods-present-rpc-example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-present-rpc-example.release.xcconfig"; path = "Pods/Target Support Files/Pods-present-rpc-example/Pods-present-rpc-example.release.xcconfig"; sourceTree = "<group>"; };
 		B8141085E578FBD6D2FB6247 /* Pods_present_rpc_example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_present_rpc_example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,6 +67,7 @@
 		434DE8342230B786004E633D /* protos */ = {
 			isa = PBXGroup;
 			children = (
+				43AF448022397F460012A0D3 /* echo.swift */,
 				434DE8362230B787004E633D /* echo.pb.swift */,
 			);
 			path = protos;
@@ -90,8 +97,10 @@
 				434DE83D2230BCB5004E633D /* README.md */,
 				4365E95A223095430096A5AE /* AppDelegate.swift */,
 				4365E95C223095430096A5AE /* ViewController.swift */,
-				434DE8242230B051004E633D /* JSONTest.swift */,
-				434DE8262230B121004E633D /* ProtobufTest.swift */,
+				43AF447E223963C70012A0D3 /* Config.swift */,
+				434DE8242230B051004E633D /* JSONClientTest.swift */,
+				434DE8262230B121004E633D /* ProtobufClientTest.swift */,
+				43AF447C2239602F0012A0D3 /* RPCClientTest.swift */,
 				434DE83B2230BB83004E633D /* JSONConvertible.swift */,
 				434DE8342230B786004E633D /* protos */,
 				4365E95E223095430096A5AE /* Main.storyboard */,
@@ -234,10 +243,13 @@
 			files = (
 				4365E95D223095430096A5AE /* ViewController.swift in Sources */,
 				434DE83C2230BB83004E633D /* JSONConvertible.swift in Sources */,
+				43AF447F223963C70012A0D3 /* Config.swift in Sources */,
+				43AF447D2239602F0012A0D3 /* RPCClientTest.swift in Sources */,
 				434DE8382230B787004E633D /* echo.pb.swift in Sources */,
+				43AF448122397F460012A0D3 /* echo.swift in Sources */,
 				4365E95B223095430096A5AE /* AppDelegate.swift in Sources */,
-				434DE8272230B121004E633D /* ProtobufTest.swift in Sources */,
-				434DE8252230B051004E633D /* JSONTest.swift in Sources */,
+				434DE8272230B121004E633D /* ProtobufClientTest.swift in Sources */,
+				434DE8252230B051004E633D /* JSONClientTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
