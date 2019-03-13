@@ -11,7 +11,7 @@ a clean, lightweight Protocol Buffer compiler for Java.
 
 ## Service Generation
 
-The [`present-rpc-compiler`](https://github.com/presentco/present-rpc/blob/master/java/rpc-compiler/README.md) Gradle plugin generates code from protos in
+The [`present-rpc-compiler`](https://github.com/presentco/present-rpc/blob/master/java/compiler/README.md) Gradle plugin generates code from protos in
 `src/main/proto` and automatically compiles it along with your other
 Java code. To use the plugin, add this code to your `build.gradle` file:
 
@@ -25,7 +25,7 @@ buildscript {
 apply plugin: 'co.present.rpc.compiler'
 ```
 
-Don't use Gradle? Try the [command line tool](https://github.com/presentco/present-rpc/blob/master/java/rpc-compiler/README.md).
+Don't use Gradle? Try the [command line tool](https://github.com/presentco/present-rpc/blob/master/java/compiler/README.md).
 
 ## Example: `EchoService`
 

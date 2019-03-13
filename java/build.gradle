@@ -59,6 +59,8 @@ apply plugin: 'nebula-aggregate-javadocs'
 
 // Maven publishing
 //
+// Instructions: http://weibeld.net/java/publish-to-maven-central.html
+//
 // Note: Use `gradle publishToMavenLocal` to publish to Maven local.
 //
 // Set these properties in ~/.gradle/gradle.properties:
@@ -67,9 +69,8 @@ apply plugin: 'nebula-aggregate-javadocs'
 // signing.keyId=[pgp key name]
 // signing.password=[pgp key password]
 // signing.secretKeyRingFile=[private key ring file]
-//
-//sonatypeUsername=[Sonatype user]
-//sonatypePassword=[Sonatype password]
+// sonatypeUsername=[Sonatype user]
+// sonatypePassword=[Sonatype password]
 subprojects {
     evaluationDependsOnChildren()
     
@@ -135,8 +136,10 @@ subprojects {
         }
         repositories {
             maven {
-                // Snapshot repo
-                url 'https://oss.sonatype.org/content/repositories/snapshots/'
+                def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+                def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
+                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+
                 credentials {
                     // Using findProperty() avoids breaking the build when these properties are missing.
                     username findProperty('sonatypeUsername')
@@ -166,6 +169,7 @@ subprojects {
                 mavenJava(MavenPublication) {
                     pom {
                         name = project.description
+                        description = project.description
                     }
                 }
             }

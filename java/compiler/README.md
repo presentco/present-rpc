@@ -5,7 +5,7 @@ services
 
 ## Command Line Usage
 
-Download [present-rpc-compiler.jar](https://github.com/presentco/present-rpc/raw/master/java/javascript-generator/build/libs/present-rpc-javascript-generator.jar). 
+Download [present-rpc-compiler.jar](https://github.com/presentco/present-rpc/raw/master/java/compiler/build/libs/present-rpc-compiler.jar). 
 
 Run `java -jar present-rpc-compiler.jar`. It supports the following parameters:
 
