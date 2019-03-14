@@ -2,8 +2,8 @@ apply plugin: 'java-library'
 
 description 'Present RPC core library'
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+sourceCompatibility = '1.7'
+targetCompatibility = '1.7'
 
 dependencies {
     api deps.wire.runtime

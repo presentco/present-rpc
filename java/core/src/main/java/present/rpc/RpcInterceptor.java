@@ -8,7 +8,11 @@ package present.rpc;
 public interface RpcInterceptor {
 
   /** An interceptor that calls {@link RpcInvocation#proceed()}. */
-  RpcInterceptor NOOP = RpcInvocation::proceed;
+  RpcInterceptor NOOP = new RpcInterceptor() {
+    @Override public Object intercept(RpcInvocation invocation) throws Exception {
+      return invocation.proceed();
+    }
+  };
 
   /**
    * Intercepts the given invocation. The interceptor may call {@link RpcInvocation#proceed()} to

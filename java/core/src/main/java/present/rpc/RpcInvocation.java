@@ -90,7 +90,7 @@ public abstract class RpcInvocation {
    * implementation instance.
    */
   public static RpcInvocation newInstance(RpcHeaders headers,
-      Object implementation, RpcMethod method, Object argument) {
+      final Object implementation, final RpcMethod method, final Object argument) {
     method.method().getParameterTypes()[0].cast(argument);
     return new RpcInvocation(headers, method, argument, implementation) {
       public Object proceed() throws Exception {

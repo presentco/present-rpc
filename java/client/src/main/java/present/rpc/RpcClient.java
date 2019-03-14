@@ -66,13 +66,13 @@ public class RpcClient {
       this.mediaType = MediaType.parse(encoding.contentType);
     }
 
-    @Override public Object invoke(Object proxy, Method javaMethod, Object[] args)
+    @Override public Object invoke(final Object proxy, final Method javaMethod, Object[] args)
         throws Throwable {
       String methodName = javaMethod.getName();
-      RpcMethod method = methods.get(methodName);
-      Object argument = args[0];
-      String url = this.url + "/" + serviceName + "/" + methodName;
-      ClientHeaders headers = new ClientHeaders();
+      final RpcMethod method = methods.get(methodName);
+      final Object argument = args[0];
+      final String url = this.url + "/" + serviceName + "/" + methodName;
+      final ClientHeaders headers = new ClientHeaders();
       final RpcInvocation invocation = new RpcInvocation(headers, method, args[0], null) {
         @Override public Object proceed() throws Exception {
           String traceId = UUID.randomUUID().toString().replace("-", "");
@@ -82,7 +82,9 @@ public class RpcClient {
               // Putting gzip in the agent prompts Google to gzip responses.
               .addHeader("User-Agent", "Present RpcClient (gzip)")
               .addHeader("X-Cloud-Trace-Context", traceId + "/0;o=1");
-          headers.headers.forEach(builder::addHeader);
+          for (Map.Entry<String, String> entry : headers.headers.entrySet()) {
+            builder.addHeader(entry.getKey(), entry.getValue());
+          }
           Request request = builder.build();
           okhttp3.Response response = httpClient.newCall(request).execute();
           int code = response.code();
