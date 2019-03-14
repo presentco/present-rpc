@@ -12,6 +12,7 @@ Run `java -jar present-rpc-compiler.jar`. It supports the following parameters:
 * `--proto_path=<dir>` Directory containing Protocol Buffers (required)
 * `--java_out=<dir>` Java output directory (optional)
 * `--js_out=<dir>` Javascript output directory (optional)
+* `--swift_out=<dir>` Swift output directory (optional)
 
 The compiler delegates to Wire's compiler to generate Protocol Buffer messages
 in Java, so its command line options are supported, too.
@@ -28,7 +29,7 @@ For example:
 ```groovy
 buildscript {
   dependencies {
-    classpath 'co.present.present-rpc:javascript-generator:0.1'
+    classpath 'co.present.rpc:compiler:0.1'
   }
 }
 

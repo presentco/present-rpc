@@ -28,7 +28,7 @@ Java code. To use the plugin, add this code to your `build.gradle` file:
 ```groovy
 buildscript {
   dependencies {
-    classpath 'co.present.rpc:compilerSNAPSHOT'
+    classpath 'co.present.rpc:compiler:0.1'
   }
 }
 
