@@ -41,3 +41,13 @@ shadowJar {
 build {
     dependsOn 'shadowJar'
 }
+
+// Workaround: This disables the broken publications that seem to be added by java-gradle-plugin.
+afterEvaluate {
+    tasks.withType(PublishToMavenRepository) { task ->
+        if (task.publication.name != 'mavenJava') {
+            task.enabled = false
+            task.group = null
+        }
+    }
+}

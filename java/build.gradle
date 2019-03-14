@@ -65,12 +65,12 @@ apply plugin: 'nebula-aggregate-javadocs'
 //
 // Set these properties in ~/.gradle/gradle.properties:
 //
-// signing.gnupg.keyName=[pgp key name]
-// signing.keyId=[pgp key name]
-// signing.password=[pgp key password]
-// signing.secretKeyRingFile=[private key ring file]
-// sonatypeUsername=[Sonatype user]
-// sonatypePassword=[Sonatype password]
+//   signing.gnupg.keyName=[pgp key name]
+//   signing.keyId=[pgp key name]
+//   signing.password=[pgp key password]
+//   signing.secretKeyRingFile=[private key ring file]
+//   sonatypeUsername=[Sonatype user]
+//   sonatypePassword=[Sonatype password]
 subprojects {
     evaluationDependsOnChildren()
     
@@ -139,7 +139,6 @@ subprojects {
                 def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
                 def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
                 url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-
                 credentials {
                     // Using findProperty() avoids breaking the build when these properties are missing.
                     username findProperty('sonatypeUsername')

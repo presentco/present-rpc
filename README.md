@@ -2,6 +2,19 @@
 
 Simple, idiomatic RPCs for Java, Javascript, Android, iOS, and more
 
+Brought to you by [Present Company](https://present.co)
+
+Table of Contents
+=================
+
+  * [Features](#features)
+  * [Supported Platforms](#supported-platforms)
+  * [Example](#example)
+  * [Javascript Clients](#javascript-clients)
+  * [HTTP Protocol Specification](#http-protocol-specification)
+  * [Why Protocol Buffers?](#why-protocol-buffers)
+  * [What about gRPC?](#what-about-grpc)
+
 ## Features
 
 * Simple! Post JSON, get JSON back.

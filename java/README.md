@@ -3,6 +3,16 @@
 Present RPC for Java builds upon [Wire](https://github.com/square/wire),
 a clean, lightweight Protocol Buffer compiler for Java.
 
+Table of Contents
+=================
+
+  * [Modules](#modules)
+  * [Service Generation](#service-generation)
+  * [Example: EchoService](#example-echoservice)
+  * [The Server](#the-server)
+  * [The Client](#the-client)
+  * [Headers](#headers)
+
 ## Modules
 
 * `compiler`: Generate Java and Javascript code for Protocol Buffer services

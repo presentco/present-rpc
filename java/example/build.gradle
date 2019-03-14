@@ -1,22 +1,16 @@
 buildscript {
   repositories {
     jcenter()
-    maven {
-      url 'https://oss.sonatype.org/content/repositories/snapshots/'
-    }
   }
 
   dependencies {
-    classpath 'co.present.rpc:compiler:0.1-SNAPSHOT'
+    classpath 'co.present.rpc:compiler:0.1'
     classpath 'org.gretty:gretty:+'
   }
 }
 
 repositories {
   jcenter()
-  maven {
-    url 'https://oss.sonatype.org/content/repositories/snapshots/'
-  }
 }
 
 // Generates 'build/js/echo.js'. Adds 'generateJavascriptServices' task.
@@ -26,7 +20,7 @@ apply plugin: 'war'
 apply plugin: 'org.gretty'
 
 dependencies {
-  implementation 'co.present.rpc:server:0.1-SNAPSHOT'
+  implementation 'co.present.rpc:server:0.1'
   implementation 'org.eclipse.jetty:jetty-servlet:9.4.15.v20190215'
 }
 
