@@ -28,7 +28,7 @@ For example:
 ```groovy
 buildscript {
   dependencies {
-    classpath 'co.present.present-rpc:javascript-generator:0.1-SNAPSHOT'
+    classpath 'co.present.present-rpc:javascript-generator:0.1'
   }
 }
 
