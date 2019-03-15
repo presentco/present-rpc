@@ -13,15 +13,19 @@ This will automatically install the `protoc` and `swift-protobuf` packages.
 
 ## Generate the Client Code
 
-From the project directory run the `build-protos.sh`, which executes the following commands:
+From the project directory you can run the `build-protos.sh` to execute the following commands:
 
-Run `protoc` to generate the protocol buffer message types:
+Generate the protocol buffer classes with `protoc`:
 
 `protoc --swift_out=present-rpc-example/protos --proto_path=../../java/example/src/main/proto echo.proto`
 
-Run `present-rpc-compiler` to generate the client service stubs:
+These classes represent the argument and response types used with the service.  They provide methods to serialize and deserialize the data that is sent over the network using the protcol buffer format.  You can use these classes directly by posting the serialized data over HTTP to the service or you can use the client service stubs generated in the next steps to handle the network calls.
+
+Generate the client service classes with `present-rpc`:
 
 `present-rpc --proto_path=../../java/example/src/main/proto --swift_out=present-rpc-example/protos`
+
+These classes provide client stubs for calling each method defined in the service.  These methods make the network call and return the results to you asynchronously.
 
 
 ## Run the Example Server
