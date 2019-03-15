@@ -113,6 +113,27 @@ Finally, map it in `web.xml`:
 
 `RpcFilter` handles calls to your service and lets other unrelated requests pass through.
 
+### Cross-Site Requests
+
+If your web page is hosted on separate domain from your service, you can allow requests from 
+other hosts:
+
+```java
+public class EchoFilter extends RpcFilter {{
+  ...
+  allowHost("localhost");
+}}
+```
+
+Or even requests from any host:
+
+```java
+public class EchoFilter extends RpcFilter {{
+  ...
+  allowAll();
+}}
+```
+
 ## The Client
 
 Add `client` dependency to `build.gradle`:
