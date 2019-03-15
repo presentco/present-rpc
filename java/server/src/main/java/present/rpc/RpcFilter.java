@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URI;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -46,6 +47,11 @@ public abstract class RpcFilter implements Filter {
   /** Allows requests from the given host name. */
   protected void allowHost(String host) {
     allowedHosts.add(host);
+  }
+
+  /** Allows requests from the given host names. */
+  protected void allowHosts(String... hosts) {
+    allowedHosts.addAll(Arrays.asList(hosts));
   }
 
   /** Allows requests from all hosts. */
@@ -99,7 +105,7 @@ public abstract class RpcFilter implements Filter {
             if ("OPTIONS".equals(request.getMethod().toUpperCase())) {
               response.addHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
               response.addHeader("Access-Control-Max-Age", "86400"); // 1 day
-              //
+              // Always allow credentials.
               response.addHeader("Access-Control-Allow-Credentials", "true");
               // Allow any request headers.
               String requestHeaders = request.getHeader("Access-Control-Request-Headers");
