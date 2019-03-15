@@ -35,7 +35,13 @@ buildscript {
 apply plugin: 'co.present.rpc.compiler'
 ```
 
-Don't use Gradle? Try the [command line tool](https://github.com/presentco/present-rpc/blob/master/java/compiler/README.md).
+### Homebrew
+
+Don't use Gradle? Install the [command line tool](https://github.com/presentco/present-rpc/blob/master/java/compiler/README.md) using brew:
+
+`brew install presentco/utils/present-rpc`
+
+This installs the `present-rpc` compiler command.  Run it with no arguments to see a help message.
 
 ## Example: `EchoService`
 

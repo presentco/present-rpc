@@ -5,21 +5,27 @@
 
 *Note: the generated files are included in this repository so if you just want to try the code skip ahead to "Run the Example Server".*
 
-User Homebrew to install the `protoc` command used to render `.proto` files to Swift source code.
+Use Homebrew to install the `present-rpc` command used to render `.proto` files to Swift services.
 
-`brew install swift-protobuf`
+`brew install presentco/utils/present-rpc`
+
+This will automatically install the `protoc` and `swift-protobuf` packages.
 
 ## Generate the Client Code
 
-From the project directory run the provided `build-protos.sh`, which executes the following commands:
+From the project directory you can run the `build-protos.sh` to execute the following commands:
 
-Run `protoc` to generate the protocol buffer message types:
+Generate the protocol buffer classes with `protoc`:
 
 `protoc --swift_out=present-rpc-example/protos --proto_path=../../java/example/src/main/proto echo.proto`
 
-Run `present-rpc-compiler` to generate the client service stubs:
+These classes represent the argument and response types used with the service.  They provide methods to serialize and deserialize the data that is sent over the network using the protcol buffer format.  You can use these classes directly by posting the serialized data over HTTP to the service or you can use the client service stubs generated in the next steps to handle the network calls.
 
-`java -jar ../../java/compiler/build/libs/present-rpc-compiler.jar --proto_path=../../java/example/src/main/proto --swift_out=present-rpc-example/protos`
+Generate the client service classes with `present-rpc`:
+
+`present-rpc --proto_path=../../java/example/src/main/proto --swift_out=present-rpc-example/protos`
+
+These classes provide client stubs for calling each method defined in the service.  These methods make the network call and return the results to you asynchronously.
 
 
 ## Run the Example Server
@@ -32,3 +38,4 @@ See `java/example/README.md` for instructions to run the local server with the e
 ## Run the Example Client
 
 Run the example application in the XCode simulator and look at the console for results.
+
