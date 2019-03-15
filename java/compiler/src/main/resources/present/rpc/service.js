@@ -10,6 +10,7 @@ function {{ServiceName}}(url) {
   return new Promise(function (resolve, reject) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
+    xhr.withCredentials = true;
     xhr.onerror = function() {
       reject({
         request: xhr,

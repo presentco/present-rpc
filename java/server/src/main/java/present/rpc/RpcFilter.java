@@ -4,10 +4,13 @@ import com.google.common.base.Splitter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.net.URI;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -37,6 +40,24 @@ public abstract class RpcFilter implements Filter {
 
   private final Map<String, RpcService> services = new HashMap<>();
 
+  private boolean allowAll = false;
+  private Set<String> allowedHosts = new HashSet<>();
+
+  /** Allows requests from the given host name. */
+  protected void allowHost(String host) {
+    allowedHosts.add(host);
+  }
+
+  /** Allows requests from all hosts. */
+  protected void allowAll() {
+    allowAll = true;
+  }
+
+  /** Declares a service. Called from subclass constructors. */
+  protected <T> void service(Class<T> interfaceType, T implementation) {
+    service(interfaceType, implementation, null);
+  }
+
   /** Declares a service. Called from subclass constructors. */
   protected <T> void service(Class<T> interfaceType, T implementation, RpcInterceptor interceptor) {
     service(interfaceType, implementation, interceptor, Collections.emptyMap());
@@ -59,16 +80,40 @@ public abstract class RpcFilter implements Filter {
   @Override
   public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
       throws IOException, ServletException {
-    HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
-    HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
-    String path = httpRequest.getServletPath();
+    HttpServletRequest request = (HttpServletRequest) servletRequest;
+    HttpServletResponse response = (HttpServletResponse) servletResponse;
+    String path = request.getServletPath();
     List<String> pathElements = Splitter.on('/').splitToList(path);
     if (pathElements.size() == 3) {
       String serviceName = pathElements.get(1);
       RpcService service = services.get(serviceName);
       if (service != null) {
+        // Handle cross-site requests.
+        // Background: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+        // Note: All requests will be pre-flighted.
+        String origin = request.getHeader("Origin");
+        if (origin != null) {
+          URI originUri = URI.create(origin);
+          if (allowAll || allowedHosts.contains(originUri.getHost())) {
+            response.addHeader("Access-Control-Allow-Origin", origin);
+            if ("OPTIONS".equals(request.getMethod().toUpperCase())) {
+              response.addHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+              response.addHeader("Access-Control-Max-Age", "86400"); // 1 day
+              //
+              response.addHeader("Access-Control-Allow-Credentials", "true");
+              // Allow any request headers.
+              String requestHeaders = request.getHeader("Access-Control-Request-Headers");
+              if (requestHeaders != null) {
+                response.addHeader("Access-Control-Allow-Headers", requestHeaders);
+              }
+            }
+          } else {
+            logger.info("Request from disallowed origin: " + origin);
+          }
+        }
+
         String methodName = pathElements.get(2);
-        doRpc(httpRequest, httpResponse, service, methodName);
+        doRpc(request, response, service, methodName);
         return;
       }
     }
@@ -77,17 +122,23 @@ public abstract class RpcFilter implements Filter {
 
   private void doRpc(HttpServletRequest request, HttpServletResponse response,
       RpcService service, String methodName) throws IOException {
-    if (!"POST".equals(request.getMethod().toUpperCase())) {
-      sendError(request, response, 400, "HTTP POST required");
-      return;
-    }
-
     // Look up method by name.
     methodName = firstNonNull(service.aliases.get(methodName), methodName);
     final RpcMethod method = service.methods.get(methodName);
     if (method == null) {
       logger.info("Unknown RPC: {}.{}", service.name(), methodName);
       sendError(request, response, 404, "RPC method not found");
+      return;
+    }
+
+    String requestMethod = request.getMethod().toUpperCase();
+    if ("OPTIONS".equals(requestMethod)) {
+      response.setStatus(200);
+      return;
+    }
+
+    if (!"POST".equals(requestMethod)) {
+      sendError(request, response, 400, "HTTP POST required");
       return;
     }
 

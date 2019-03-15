@@ -21,7 +21,7 @@ apply plugin: 'org.gretty'
 
 dependencies {
   implementation 'co.present.rpc:server:0.1'
-  implementation 'org.eclipse.jetty:jetty-servlet:9.4.15.v20190215'
+  providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
 }
 
 // Generate Javascript services and include them in the war.
@@ -34,5 +34,4 @@ gretty {
   extraResourceBase 'build/js'
   httpPort = 8080
   contextPath = '/'
-  scanInterval = 1
 }
