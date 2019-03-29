@@ -1,8 +1,8 @@
 package present.rpc;
 
-import com.squareup.wire.WireCompiler;
+import com.squareup.wire.PresentWireCompiler;
 import com.squareup.wire.schema.Schema;
-import com.squareup.wire.schema.SchemaLoader;
+import com.squareup.wire.schema.PresentSchemaLoader;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,13 +62,13 @@ public class RpcCompiler {
     Log log = (format, logArgs) -> System.out.printf(format + "\n", logArgs);
 
     // Parse protos
-    SchemaLoader loader = new SchemaLoader();
+    PresentSchemaLoader loader = new PresentSchemaLoader();
     for (String source : compiler.protoPaths) loader.addSource(new File(source));
     Schema schema = loader.load();
 
     if (compiler.javaOut != null) {
       // Generate messages
-      WireCompiler.main(args);
+      PresentWireCompiler.main(args);
 
       // Generate services
       new JavaGenerator(log, schema, compiler.javaOut).execute();

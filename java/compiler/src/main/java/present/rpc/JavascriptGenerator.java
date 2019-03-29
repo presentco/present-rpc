@@ -2,11 +2,9 @@ package present.rpc;
 
 import com.github.mustachejava.Mustache;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import com.squareup.wire.schema.ProtoFile;
 import com.squareup.wire.schema.Rpc;
 import com.squareup.wire.schema.Schema;
-import com.squareup.wire.schema.SchemaLoader;
 import com.squareup.wire.schema.Service;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -15,18 +13,9 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import picocli.CommandLine;
-
-import static com.google.common.base.CaseFormat.LOWER_CAMEL;
-import static com.google.common.base.CaseFormat.UPPER_CAMEL;
 
 public class JavascriptGenerator {
 
