@@ -14,6 +14,7 @@ dependencies {
     implementation deps.wire.schema
     implementation 'info.picocli:picocli:3.9.5'
     implementation 'com.github.spullara.mustache.java:compiler:0.9.5'
+    implementation deps.guava
 }
 
 jar {

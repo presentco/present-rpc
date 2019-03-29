@@ -56,6 +56,7 @@ public class RpcCompilerPlugin implements Plugin<Project> {
             "--proto_path=" + protoSrc.getPath(),
         });
       } catch (IOException e) {
+        e.printStackTrace();
         throw new RuntimeException(e.getMessage());
       }
     });
