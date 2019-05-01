@@ -1,13 +1,10 @@
 package present.rpc;
 
 import com.squareup.wire.Message;
-import com.squareup.wire.ProtoAdapter;
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import okio.ByteString;
 
 /**
  * A method in a service interface.
